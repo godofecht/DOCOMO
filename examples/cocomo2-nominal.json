@@ -1,0 +1,12 @@
+{
+  "equivalent_ksloc": 100,
+  "scale_factors": {
+    "PREC": "N",
+    "FLEX": "N",
+    "RESL": "N",
+    "TEAM": "N",
+    "PMAT": "N"
+  },
+  "effort_multipliers": {},
+  "schedule_percent": 100
+}
