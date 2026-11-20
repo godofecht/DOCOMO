@@ -69,6 +69,12 @@ def calibrate_native(manifests: Sequence[Mapping[str, Any]], *, allow_synthetic:
 
     records = [validate_project(m) for m in manifests]
     accepted = [r for r in records if r['acceptance']['accepted']]
+    if any(r['outcome']['total_human_minutes'] <= 0 for r in accepted):
+        return {
+            'status': 'zero_human_effort_requires_hurdle_model',
+            'readiness': readiness,
+            'coefficients': None,
+        }
     repos = sorted({r['snapshot']['repository'] for r in accepted})
     if len(repos) < folds * 2 or not 3 <= folds <= 6:
         return {
@@ -104,7 +110,7 @@ def calibrate_native(manifests: Sequence[Mapping[str, Any]], *, allow_synthetic:
                          [math.log(r['outcome']['total_human_minutes']) for r in accepted])
                for name in names if name != 'cocomo2_nominal_assumptions'}
     return {
-        'status':'internal_repo_group_validation_only',
+        'status':('synthetic_algorithm_test_only' if allow_synthetic else 'internal_repo_group_validation_only'),
         'calibration_domain': next(iter(readiness['domains'])),
         'model_selection': winner,
         'coefficient_units':'log(human_working_minutes)',
