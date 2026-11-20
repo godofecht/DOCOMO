@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "docomo"
-version = "0.2.0"
+version = "0.3.0"
 description = "Evidence-grounded software complexity and domain-specific cost calibration"
 requires-python = ">=3.11"
 
 [project.scripts]
 docomo = "docomo.cli:main"
 docomo-calibrate = "docomo.calibration_cli:main"
+docomo-forecast = "docomo.forecast_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
