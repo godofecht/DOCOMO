@@ -151,6 +151,7 @@ def calibrate_projects(rows: list[dict], folds: int = 5) -> dict:
     winner = min(names, key=lambda name: (metrics[name]['log_rmse'], name))
     return {
         'domain': 'historical_cocomo81', 'samples': len(rows), 'folds': folds,
+        'observed_kloc_range': [min(r['kloc'] for r in rows), max(r['kloc'] for r in rows)],
         'units': 'person_months', 'validation': 'project-id-modulo K-fold; no independent modern-project holdout',
         'model_metrics': metrics, 'full_data_coefficients': fitted,
         'cross_validated_best': winner,
@@ -246,6 +247,7 @@ def calibrate_ai_tasks(rows: list[dict], folds: int = 4, replicates: int = 400, 
     hi = effects[min(len(effects)-1, math.ceil(.975 * len(effects)) - 1)]
     return {
         'domain': 'metr_early_2025_tasks', 'samples': len(rows), 'developers': len(group_ids),
+        'observed_estimate_range': [min(r['estimated_no_ai'] for r in rows), max(r['estimated_no_ai'] for r in rows)],
         'treatment_groups': {'ai_allowed': sum(r['ai'] for r in rows), 'ai_disallowed': sum(not r['ai'] for r in rows)},
         'outcome': 'developer implementation minutes including imputed post-review time',
         'coefficients': {'intercept': beta[0], 'log_pre_randomization_estimate': beta[1], 'ai_allowed': beta[2]},
