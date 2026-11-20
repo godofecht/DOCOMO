@@ -1,0 +1,5 @@
+.docomo-cache/
+calibration-report.json
+*.egg-info/
+__pycache__/
+*.py[cod]
