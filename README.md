@@ -4,7 +4,7 @@
 
 DOCOMO is an experimental framework for assessing AI-assisted software cost without assuming that line count, model confidence, or a single complexity rating captures the difficulty of delivering correct behaviour.
 
-**Grounding:** given explicitly supplied plausible interpretations, decisions, decision losses, and evidence likelihoods, the evaluator computes EVPI and EVSI to identify when additional clarification can change an important decision.
+**Grounding:** given explicitly supplied plausible interpretations, decisions, decision losses, and evidence likelihoods, the evaluator computes EVPI and EVSI. It also supports no-prior minimax regret and explicit finite-prior sensitivity, without inventing probabilities.
 
 **Complexity:** given independently assessed trials of human or AI-assisted workflows, the evaluator reports observed human cost, machine cost, elapsed time, and acceptance uncertainty. It only qualifies a strategy for a stated reliability target when the Wilson confidence lower bound clears that target.
 
@@ -17,6 +17,7 @@ Requires Python 3.11 or newer.
 ```sh
 python -m pip install -e .
 docomo grounding examples/scheduler.json
+docomo robust-grounding examples/robust-scheduler.json
 docomo complexity examples/strategies.json
 docomo cocomo2 examples/cocomo2-nominal.json
 docomo manifest examples/project-manifest.json

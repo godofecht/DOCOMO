@@ -13,6 +13,7 @@ jobs:
       - run: python -m pip install -e .
       - run: python -m unittest discover -s tests -v
       - run: docomo grounding examples/scheduler.json
+      - run: docomo robust-grounding examples/robust-scheduler.json
       - run: docomo complexity examples/strategies.json
       - run: docomo cocomo2 examples/cocomo2-nominal.json
       - run: docomo manifest examples/project-manifest.json
