@@ -18,6 +18,9 @@ Requires Python 3.11 or newer.
 python -m pip install -e .
 docomo grounding examples/scheduler.json
 docomo complexity examples/strategies.json
+docomo cocomo2 examples/cocomo2-nominal.json
+docomo manifest examples/project-manifest.json
+docomo readiness examples/project-manifest-list.json
 docomo-calibrate --output calibration-report.json
 python -m unittest discover -s tests -v
 ```
