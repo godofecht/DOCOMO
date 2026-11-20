@@ -1,0 +1,22 @@
+{
+  "domain": "historical_cocomo81",
+  "equivalent_kloc": 100,
+  "development_mode": "organic",
+  "cocomo81_multipliers": {
+    "rely": 1,
+    "data": 1,
+    "cplx": 1,
+    "time": 1,
+    "stor": 1,
+    "virt": 1,
+    "turn": 1,
+    "acap": 1,
+    "aexp": 1,
+    "pcap": 1,
+    "vexp": 1,
+    "lexp": 1,
+    "modp": 1,
+    "tool": 1,
+    "sced": 1
+  }
+}
