@@ -76,7 +76,7 @@ def assess_robust_grounding(spec: Mapping[str, Any]) -> dict:
         'no_prior_minimax_regret_action':minimax,
         'no_prior_minimax_regret':worst_regret[minimax],
         'worst_case_regret_per_action':worst_regret,
-        'no_prior_decision_equivalence':all(v<=1e-9 for v in worst_regret.values()),
+        'no_prior_common_optimal_action':worst_regret[minimax]<=1e-9,
         'prior_scenarios':results,
         'scenarios_compared':len(results),
         'optimal_action_stable_across_listed_priors':len(stable_actions)==1 if results else None,
