@@ -1,0 +1,48 @@
+{
+  "task": "Specify a fair scheduler",
+  "loss_units": "relative failure cost",
+  "interpretations": {
+    "equal_cpu_time": 0.5,
+    "weighted_entitlement": 0.5
+  },
+  "decisions": {
+    "round_robin": {
+      "equal_cpu_time": 0.0,
+      "weighted_entitlement": 10.0
+    },
+    "weighted_fair_queueing": {
+      "equal_cpu_time": 7.0,
+      "weighted_entitlement": 0.0
+    }
+  },
+  "evidence": [
+    {
+      "id": "stakeholder_clarification",
+      "cost": 0.4,
+      "observations": {
+        "requests_equal_cpu": {
+          "equal_cpu_time": 0.9,
+          "weighted_entitlement": 0.1
+        },
+        "requests_weighted_entitlement": {
+          "equal_cpu_time": 0.1,
+          "weighted_entitlement": 0.9
+        }
+      }
+    },
+    {
+      "id": "uninformative_question",
+      "cost": 0.1,
+      "observations": {
+        "yes": {
+          "equal_cpu_time": 0.5,
+          "weighted_entitlement": 0.5
+        },
+        "no": {
+          "equal_cpu_time": 0.5,
+          "weighted_entitlement": 0.5
+        }
+      }
+    }
+  ]
+}
