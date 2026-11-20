@@ -1,0 +1,50 @@
+{
+  "task": "Fair scheduler requirement under contested prior weighting",
+  "loss_units": "relative consequence",
+  "interpretations": [
+    "equal_cpu_time",
+    "weighted_entitlement"
+  ],
+  "decisions": {
+    "round_robin": {
+      "equal_cpu_time": 0,
+      "weighted_entitlement": 10
+    },
+    "weighted_fair_queueing": {
+      "equal_cpu_time": 7,
+      "weighted_entitlement": 0
+    }
+  },
+  "prior_scenarios": [
+    {
+      "id": "equal_time_likely",
+      "probabilities": {
+        "equal_cpu_time": 0.6,
+        "weighted_entitlement": 0.4
+      }
+    },
+    {
+      "id": "weighted_likely",
+      "probabilities": {
+        "equal_cpu_time": 0.4,
+        "weighted_entitlement": 0.6
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "id": "stakeholder_clarification",
+      "cost": 0.5,
+      "observations": {
+        "equal": {
+          "equal_cpu_time": 1,
+          "weighted_entitlement": 0
+        },
+        "weighted": {
+          "equal_cpu_time": 0,
+          "weighted_entitlement": 1
+        }
+      }
+    }
+  ]
+}
