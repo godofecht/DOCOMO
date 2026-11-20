@@ -17,6 +17,7 @@ jobs:
       - run: docomo complexity examples/strategies.json
       - run: docomo cocomo2 examples/cocomo2-nominal.json
       - run: docomo manifest examples/project-manifest.json
+      - run: docomo native-calibrate examples/project-manifest-list.json
       - name: Calibrate on immutable upstream public datasets
         run: docomo-calibrate --output calibration-report.json
       - name: Reproduce published METR effect without a global productivity multiplier
