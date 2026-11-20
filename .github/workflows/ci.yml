@@ -14,3 +14,24 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: docomo grounding examples/scheduler.json
       - run: docomo complexity examples/strategies.json
+      - name: Calibrate on immutable upstream public datasets
+        run: docomo-calibrate --output calibration-report.json
+      - name: Reproduce published METR effect without a global productivity multiplier
+        run: |
+          python - <<'PY'
+          import json
+          result = json.load(open("calibration-report.json"))
+          early = result["early_ai_task_time"]
+          historic = result["historical_effort"]
+          assert historic["samples"] == 63
+          assert early["samples"] == 246
+          assert abs(early["ai_time_ratio_minus_one"] - 0.188) < 0.003
+          assert result["calibration_status"] == "partial_domain_specific"
+          print("COCOMO81 historical 5-fold log-RMSE:", historic["model_metrics"])
+          print("METR early-2025 time ratio minus one:", early["ai_time_ratio_minus_one"])
+          print("METR clustered bootstrap 95%:", early["cluster_bootstrap_95pct"])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docomo-public-calibration
+          path: calibration-report.json
