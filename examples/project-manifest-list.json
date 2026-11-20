@@ -1,0 +1,50 @@
+[
+  {
+    "schema_version": "1.0",
+    "project_id": "example-synthetic-001",
+    "domain": "synthetic/example",
+    "workflow": "ai_assisted",
+    "snapshot": {
+      "repository": "example/test",
+      "commit": "1111111111111111111111111111111111111111",
+      "requirements_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "planning_recorded_at": "2026-11-20T00:00:00Z"
+    },
+    "planning_features": {
+      "functional_units": 10,
+      "dependency_edges": 12,
+      "verification_obligations": 8,
+      "ambiguous_requirements": 3,
+      "equivalent_ksloc": 1.1
+    },
+    "acceptance": {
+      "accepted": true,
+      "independent_reviewer": "example-reviewer",
+      "reviewer_kind": "human_independent",
+      "oracle_commit": "2222222222222222222222222222222222222222",
+      "evidence_url": "https://example.com/synthetic-evidence",
+      "reviewer_is_author": false
+    },
+    "outcome": {
+      "human_minutes": {
+        "specification": 30,
+        "implementation": 20,
+        "verification": 70,
+        "integration": 40,
+        "orchestration": 10,
+        "rework": 60,
+        "assurance": 30
+      },
+      "machine_cost": 4.3,
+      "elapsed_minutes": 400,
+      "currency": "GBP",
+      "failed_attempts_included": true,
+      "measurement_quality_score": 0.9
+    },
+    "runtime": {
+      "toolchain": "example",
+      "toolchain_version": "1.0",
+      "model_id": "fake-model-example"
+    }
+  }
+]
