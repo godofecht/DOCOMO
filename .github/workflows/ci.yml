@@ -33,6 +33,10 @@ jobs:
           print("METR early-2025 time ratio minus one:", early["ai_time_ratio_minus_one"])
           print("METR clustered bootstrap 95%:", early["cluster_bootstrap_95pct"])
           PY
+      - name: Exercise actual historical and AI-task forecasts
+        run: |
+          docomo-forecast --report calibration-report.json --input examples/forecast-task.json
+          docomo-forecast --report calibration-report.json --input examples/forecast-historical.json
       - uses: actions/upload-artifact@v4
         with:
           name: docomo-public-calibration
