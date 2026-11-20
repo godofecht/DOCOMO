@@ -22,6 +22,8 @@ docomo cocomo2 examples/cocomo2-nominal.json
 docomo manifest examples/project-manifest.json
 docomo readiness examples/project-manifest-list.json
 docomo-calibrate --output calibration-report.json
+docomo-forecast --report calibration-report.json --input examples/forecast-task.json
+docomo-forecast --report calibration-report.json --input examples/forecast-historical.json
 python -m unittest discover -s tests -v
 ```
 
