@@ -12,6 +12,7 @@ from .grounding import assess_grounding
 from .robust_grounding import assess_robust_grounding
 from .cocomo2 import estimate_cocomo_ii
 from .manifests import validate_project, assess_readiness
+from .native import calibrate_native
 
 MODES = {
     'grounding': assess_grounding,
@@ -20,6 +21,7 @@ MODES = {
     'cocomo2': estimate_cocomo_ii,
     'manifest': validate_project,
     'readiness': assess_readiness,
+    'native-calibrate': calibrate_native,
 }
 
 
