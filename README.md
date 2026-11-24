@@ -58,6 +58,10 @@ The prospective `docomo holdout` report now contains a distinct `acceptance_eval
 
 The `docomo ledger` command reconciles each of seven human-effort stages against per-actor UTC work-session evidence and checks that non-overlapping time and source-linked machine billing records reproduce the project manifest totals. It explicitly labels source claims as **not independently authenticated**, rather than treating HTTPS URLs or declared reviewer independence as proof. [Evidence collection protocol](docs/LEDGER.md).
 
+## Study-wide evidence integrity
+
+`docomo study-audit <bundle.json>` reconciles **every** project in training, calibration and test against a detailed human/machine activity ledger. It verifies study-wide unique event IDs, no contributor-time double counting across projects, compatible data domains, independent repository partitions and a canonical SHA256 fingerprint of planning-time features **excluding observed outcomes**. It refuses synthetic production evidence and returns `cost_ledgers_and_planning_reconciled_not_authenticated`, never a certificate of external preregistration. See [the study audit protocol](docs/STUDY_AUDIT.md).
+
 ## Scope
 
 Phase 0 implements decision-theoretic grounding, observational accepted-outcome cost, and partially calibrated, strictly domain-scoped historical and AI-task models. It does not automatically interpret requirements, verify a programme, estimate unknown future costs, derive probabilities from prose, or prove that an acceptance suite covers the right specification.
