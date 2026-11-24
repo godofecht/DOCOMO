@@ -7,7 +7,6 @@ No network requests or opaque content extraction are performed.
 from __future__ import annotations
 
 import hashlib
-import os
 import re
 from collections import defaultdict
 from collections.abc import Mapping
