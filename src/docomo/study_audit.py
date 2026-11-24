@@ -76,7 +76,8 @@ def audit_study_bundle(bundle: Mapping[str, Any], *,
         if not isinstance(raw, list) or not raw:
             raise ValueError(f"experiment.{partition} must contain projects")
         normalized[partition] = []
-        for original in raw:
+        for candidate in raw:
+            original = _object(candidate, f"experiment.{partition} project")
             if not allow_synthetic and original.get("synthetic") is True:
                 raise ValueError("synthetic project observations cannot pass production study audit")
             record = validate_project(original)
