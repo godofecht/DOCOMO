@@ -15,6 +15,7 @@ from .manifests import validate_project, assess_readiness
 from .native import calibrate_native
 from .holdout import evaluate_holdout
 from .ledger import reconcile_ledger
+from .study_audit import audit_study_bundle
 
 MODES = {
     'grounding': assess_grounding,
@@ -26,6 +27,7 @@ MODES = {
     'native-calibrate': calibrate_native,
     'holdout': evaluate_holdout,
     'ledger': reconcile_ledger,
+    'study-audit': audit_study_bundle,
 }
 
 

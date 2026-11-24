@@ -1,0 +1,585 @@
+{
+  "schema_version": "1.0",
+  "experiment": {
+    "schema_version": "1.0",
+    "selected_model": "docomo_scope",
+    "registered_at": "2026-11-22T00:00:00Z",
+    "registration_uri": "https://example.org/illustrative-registration",
+    "target_repository_coverage": 0.9,
+    "train": [
+      {
+        "schema_version": "1.0",
+        "project_id": "synthetic-train-1",
+        "domain": "synthetic/example",
+        "workflow": "ai_assisted",
+        "snapshot": {
+          "repository": "example/train-repo",
+          "commit": "1111111111111111111111111111111111111111",
+          "requirements_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "planning_recorded_at": "2026-11-20T00:00:00Z"
+        },
+        "planning_features": {
+          "functional_units": 10,
+          "dependency_edges": 12,
+          "verification_obligations": 8,
+          "ambiguous_requirements": 3,
+          "equivalent_ksloc": 1.1
+        },
+        "acceptance": {
+          "accepted": true,
+          "independent_reviewer": "example-reviewer",
+          "reviewer_kind": "human_independent",
+          "oracle_commit": "2222222222222222222222222222222222222222",
+          "evidence_url": "https://example.com/synthetic-evidence",
+          "reviewer_is_author": false
+        },
+        "outcome": {
+          "human_minutes": {
+            "specification": 30,
+            "implementation": 20,
+            "verification": 70,
+            "integration": 40,
+            "orchestration": 10,
+            "rework": 60,
+            "assurance": 30
+          },
+          "machine_cost": 4.3,
+          "elapsed_minutes": 400,
+          "currency": "GBP",
+          "failed_attempts_included": true,
+          "measurement_quality_score": 0.9
+        },
+        "runtime": {
+          "toolchain": "example",
+          "toolchain_version": "1.0",
+          "model_id": "fake-model-example"
+        },
+        "synthetic": true
+      }
+    ],
+    "calibration": [
+      {
+        "schema_version": "1.0",
+        "project_id": "synthetic-calibration-1",
+        "domain": "synthetic/example",
+        "workflow": "ai_assisted",
+        "snapshot": {
+          "repository": "example/calibration-repo",
+          "commit": "1111111111111111111111111111111111111111",
+          "requirements_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "planning_recorded_at": "2026-11-20T00:00:00Z"
+        },
+        "planning_features": {
+          "functional_units": 10,
+          "dependency_edges": 12,
+          "verification_obligations": 8,
+          "ambiguous_requirements": 3,
+          "equivalent_ksloc": 1.1
+        },
+        "acceptance": {
+          "accepted": true,
+          "independent_reviewer": "example-reviewer",
+          "reviewer_kind": "human_independent",
+          "oracle_commit": "2222222222222222222222222222222222222222",
+          "evidence_url": "https://example.com/synthetic-evidence",
+          "reviewer_is_author": false
+        },
+        "outcome": {
+          "human_minutes": {
+            "specification": 30,
+            "implementation": 20,
+            "verification": 70,
+            "integration": 40,
+            "orchestration": 10,
+            "rework": 60,
+            "assurance": 30
+          },
+          "machine_cost": 4.3,
+          "elapsed_minutes": 400,
+          "currency": "GBP",
+          "failed_attempts_included": true,
+          "measurement_quality_score": 0.9
+        },
+        "runtime": {
+          "toolchain": "example",
+          "toolchain_version": "1.0",
+          "model_id": "fake-model-example"
+        },
+        "synthetic": true
+      }
+    ],
+    "test": [
+      {
+        "schema_version": "1.0",
+        "project_id": "synthetic-test-1",
+        "domain": "synthetic/example",
+        "workflow": "ai_assisted",
+        "snapshot": {
+          "repository": "example/test-repo",
+          "commit": "1111111111111111111111111111111111111111",
+          "requirements_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "planning_recorded_at": "2026-11-23T00:00:00Z"
+        },
+        "planning_features": {
+          "functional_units": 10,
+          "dependency_edges": 12,
+          "verification_obligations": 8,
+          "ambiguous_requirements": 3,
+          "equivalent_ksloc": 1.1
+        },
+        "acceptance": {
+          "accepted": true,
+          "independent_reviewer": "example-reviewer",
+          "reviewer_kind": "human_independent",
+          "oracle_commit": "2222222222222222222222222222222222222222",
+          "evidence_url": "https://example.com/synthetic-evidence",
+          "reviewer_is_author": false
+        },
+        "outcome": {
+          "human_minutes": {
+            "specification": 30,
+            "implementation": 20,
+            "verification": 70,
+            "integration": 40,
+            "orchestration": 10,
+            "rework": 60,
+            "assurance": 30
+          },
+          "machine_cost": 4.3,
+          "elapsed_minutes": 400,
+          "currency": "GBP",
+          "failed_attempts_included": true,
+          "measurement_quality_score": 0.9
+        },
+        "runtime": {
+          "toolchain": "example",
+          "toolchain_version": "1.0",
+          "model_id": "fake-model-example"
+        },
+        "synthetic": true
+      }
+    ]
+  },
+  "ledgers": [
+    {
+      "schema_version": "1.0",
+      "synthetic": true,
+      "manifest": {
+        "schema_version": "1.0",
+        "project_id": "synthetic-train-1",
+        "domain": "synthetic/example",
+        "workflow": "ai_assisted",
+        "snapshot": {
+          "repository": "example/train-repo",
+          "commit": "1111111111111111111111111111111111111111",
+          "requirements_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "planning_recorded_at": "2026-11-20T00:00:00Z"
+        },
+        "planning_features": {
+          "functional_units": 10,
+          "dependency_edges": 12,
+          "verification_obligations": 8,
+          "ambiguous_requirements": 3,
+          "equivalent_ksloc": 1.1
+        },
+        "acceptance": {
+          "accepted": true,
+          "independent_reviewer": "example-reviewer",
+          "reviewer_kind": "human_independent",
+          "oracle_commit": "2222222222222222222222222222222222222222",
+          "evidence_url": "https://example.com/synthetic-evidence",
+          "reviewer_is_author": false
+        },
+        "outcome": {
+          "human_minutes": {
+            "specification": 30,
+            "implementation": 20,
+            "verification": 70,
+            "integration": 40,
+            "orchestration": 10,
+            "rework": 60,
+            "assurance": 30
+          },
+          "machine_cost": 4.3,
+          "elapsed_minutes": 400,
+          "currency": "GBP",
+          "failed_attempts_included": true,
+          "measurement_quality_score": 0.9
+        },
+        "runtime": {
+          "toolchain": "example",
+          "toolchain_version": "1.0",
+          "model_id": "fake-model-example"
+        },
+        "synthetic": true
+      },
+      "human_events": [
+        {
+          "id": "train-synthetic-event-1",
+          "actor_id": "train-developer",
+          "stage": "specification",
+          "started_at": "2026-11-20T09:00:00.000Z",
+          "ended_at": "2026-11-20T09:30:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/1"
+        },
+        {
+          "id": "train-synthetic-event-2",
+          "actor_id": "train-developer",
+          "stage": "implementation",
+          "started_at": "2026-11-20T09:30:00.000Z",
+          "ended_at": "2026-11-20T09:50:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/2"
+        },
+        {
+          "id": "train-synthetic-event-3",
+          "actor_id": "train-developer",
+          "stage": "verification",
+          "started_at": "2026-11-20T09:50:00.000Z",
+          "ended_at": "2026-11-20T11:00:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/3"
+        },
+        {
+          "id": "train-synthetic-event-4",
+          "actor_id": "train-developer",
+          "stage": "integration",
+          "started_at": "2026-11-20T11:00:00.000Z",
+          "ended_at": "2026-11-20T11:40:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/4"
+        },
+        {
+          "id": "train-synthetic-event-5",
+          "actor_id": "train-developer",
+          "stage": "orchestration",
+          "started_at": "2026-11-20T11:40:00.000Z",
+          "ended_at": "2026-11-20T11:50:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/5"
+        },
+        {
+          "id": "train-synthetic-event-6",
+          "actor_id": "train-developer",
+          "stage": "rework",
+          "started_at": "2026-11-20T11:50:00.000Z",
+          "ended_at": "2026-11-20T12:50:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/6"
+        },
+        {
+          "id": "train-synthetic-event-7",
+          "actor_id": "train-developer",
+          "stage": "assurance",
+          "started_at": "2026-11-20T12:50:00.000Z",
+          "ended_at": "2026-11-20T13:20:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/7"
+        }
+      ],
+      "machine_charges": [
+        {
+          "id": "train-synthetic-invoice-a",
+          "amount": 2.5,
+          "currency": "GBP",
+          "billing_evidence_url": "https://example.org/synthetic/invoice/a",
+          "meter": "AI API calls"
+        },
+        {
+          "id": "train-synthetic-invoice-b",
+          "amount": 1.8,
+          "currency": "GBP",
+          "billing_evidence_url": "https://example.org/synthetic/invoice/b",
+          "meter": "Compute"
+        }
+      ],
+      "review": {
+        "reviewer_id": "synthetic-auditor",
+        "reviewed_at": "2026-11-21T00:00:00Z",
+        "review_record_url": "https://example.org/synthetic/audit/record",
+        "reviewer_is_author": false
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "synthetic": true,
+      "manifest": {
+        "schema_version": "1.0",
+        "project_id": "synthetic-calibration-1",
+        "domain": "synthetic/example",
+        "workflow": "ai_assisted",
+        "snapshot": {
+          "repository": "example/calibration-repo",
+          "commit": "1111111111111111111111111111111111111111",
+          "requirements_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "planning_recorded_at": "2026-11-20T00:00:00Z"
+        },
+        "planning_features": {
+          "functional_units": 10,
+          "dependency_edges": 12,
+          "verification_obligations": 8,
+          "ambiguous_requirements": 3,
+          "equivalent_ksloc": 1.1
+        },
+        "acceptance": {
+          "accepted": true,
+          "independent_reviewer": "example-reviewer",
+          "reviewer_kind": "human_independent",
+          "oracle_commit": "2222222222222222222222222222222222222222",
+          "evidence_url": "https://example.com/synthetic-evidence",
+          "reviewer_is_author": false
+        },
+        "outcome": {
+          "human_minutes": {
+            "specification": 30,
+            "implementation": 20,
+            "verification": 70,
+            "integration": 40,
+            "orchestration": 10,
+            "rework": 60,
+            "assurance": 30
+          },
+          "machine_cost": 4.3,
+          "elapsed_minutes": 400,
+          "currency": "GBP",
+          "failed_attempts_included": true,
+          "measurement_quality_score": 0.9
+        },
+        "runtime": {
+          "toolchain": "example",
+          "toolchain_version": "1.0",
+          "model_id": "fake-model-example"
+        },
+        "synthetic": true
+      },
+      "human_events": [
+        {
+          "id": "calibration-synthetic-event-1",
+          "actor_id": "calibration-developer",
+          "stage": "specification",
+          "started_at": "2026-11-20T09:00:00.000Z",
+          "ended_at": "2026-11-20T09:30:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/1"
+        },
+        {
+          "id": "calibration-synthetic-event-2",
+          "actor_id": "calibration-developer",
+          "stage": "implementation",
+          "started_at": "2026-11-20T09:30:00.000Z",
+          "ended_at": "2026-11-20T09:50:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/2"
+        },
+        {
+          "id": "calibration-synthetic-event-3",
+          "actor_id": "calibration-developer",
+          "stage": "verification",
+          "started_at": "2026-11-20T09:50:00.000Z",
+          "ended_at": "2026-11-20T11:00:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/3"
+        },
+        {
+          "id": "calibration-synthetic-event-4",
+          "actor_id": "calibration-developer",
+          "stage": "integration",
+          "started_at": "2026-11-20T11:00:00.000Z",
+          "ended_at": "2026-11-20T11:40:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/4"
+        },
+        {
+          "id": "calibration-synthetic-event-5",
+          "actor_id": "calibration-developer",
+          "stage": "orchestration",
+          "started_at": "2026-11-20T11:40:00.000Z",
+          "ended_at": "2026-11-20T11:50:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/5"
+        },
+        {
+          "id": "calibration-synthetic-event-6",
+          "actor_id": "calibration-developer",
+          "stage": "rework",
+          "started_at": "2026-11-20T11:50:00.000Z",
+          "ended_at": "2026-11-20T12:50:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/6"
+        },
+        {
+          "id": "calibration-synthetic-event-7",
+          "actor_id": "calibration-developer",
+          "stage": "assurance",
+          "started_at": "2026-11-20T12:50:00.000Z",
+          "ended_at": "2026-11-20T13:20:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/7"
+        }
+      ],
+      "machine_charges": [
+        {
+          "id": "calibration-synthetic-invoice-a",
+          "amount": 2.5,
+          "currency": "GBP",
+          "billing_evidence_url": "https://example.org/synthetic/invoice/a",
+          "meter": "AI API calls"
+        },
+        {
+          "id": "calibration-synthetic-invoice-b",
+          "amount": 1.8,
+          "currency": "GBP",
+          "billing_evidence_url": "https://example.org/synthetic/invoice/b",
+          "meter": "Compute"
+        }
+      ],
+      "review": {
+        "reviewer_id": "synthetic-auditor",
+        "reviewed_at": "2026-11-21T00:00:00Z",
+        "review_record_url": "https://example.org/synthetic/audit/record",
+        "reviewer_is_author": false
+      }
+    },
+    {
+      "schema_version": "1.0",
+      "synthetic": true,
+      "manifest": {
+        "schema_version": "1.0",
+        "project_id": "synthetic-test-1",
+        "domain": "synthetic/example",
+        "workflow": "ai_assisted",
+        "snapshot": {
+          "repository": "example/test-repo",
+          "commit": "1111111111111111111111111111111111111111",
+          "requirements_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "planning_recorded_at": "2026-11-23T00:00:00Z"
+        },
+        "planning_features": {
+          "functional_units": 10,
+          "dependency_edges": 12,
+          "verification_obligations": 8,
+          "ambiguous_requirements": 3,
+          "equivalent_ksloc": 1.1
+        },
+        "acceptance": {
+          "accepted": true,
+          "independent_reviewer": "example-reviewer",
+          "reviewer_kind": "human_independent",
+          "oracle_commit": "2222222222222222222222222222222222222222",
+          "evidence_url": "https://example.com/synthetic-evidence",
+          "reviewer_is_author": false
+        },
+        "outcome": {
+          "human_minutes": {
+            "specification": 30,
+            "implementation": 20,
+            "verification": 70,
+            "integration": 40,
+            "orchestration": 10,
+            "rework": 60,
+            "assurance": 30
+          },
+          "machine_cost": 4.3,
+          "elapsed_minutes": 400,
+          "currency": "GBP",
+          "failed_attempts_included": true,
+          "measurement_quality_score": 0.9
+        },
+        "runtime": {
+          "toolchain": "example",
+          "toolchain_version": "1.0",
+          "model_id": "fake-model-example"
+        },
+        "synthetic": true
+      },
+      "human_events": [
+        {
+          "id": "test-synthetic-event-1",
+          "actor_id": "test-developer",
+          "stage": "specification",
+          "started_at": "2026-11-20T09:00:00.000Z",
+          "ended_at": "2026-11-20T09:30:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/1"
+        },
+        {
+          "id": "test-synthetic-event-2",
+          "actor_id": "test-developer",
+          "stage": "implementation",
+          "started_at": "2026-11-20T09:30:00.000Z",
+          "ended_at": "2026-11-20T09:50:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/2"
+        },
+        {
+          "id": "test-synthetic-event-3",
+          "actor_id": "test-developer",
+          "stage": "verification",
+          "started_at": "2026-11-20T09:50:00.000Z",
+          "ended_at": "2026-11-20T11:00:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/3"
+        },
+        {
+          "id": "test-synthetic-event-4",
+          "actor_id": "test-developer",
+          "stage": "integration",
+          "started_at": "2026-11-20T11:00:00.000Z",
+          "ended_at": "2026-11-20T11:40:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/4"
+        },
+        {
+          "id": "test-synthetic-event-5",
+          "actor_id": "test-developer",
+          "stage": "orchestration",
+          "started_at": "2026-11-20T11:40:00.000Z",
+          "ended_at": "2026-11-20T11:50:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/5"
+        },
+        {
+          "id": "test-synthetic-event-6",
+          "actor_id": "test-developer",
+          "stage": "rework",
+          "started_at": "2026-11-20T11:50:00.000Z",
+          "ended_at": "2026-11-20T12:50:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/6"
+        },
+        {
+          "id": "test-synthetic-event-7",
+          "actor_id": "test-developer",
+          "stage": "assurance",
+          "started_at": "2026-11-20T12:50:00.000Z",
+          "ended_at": "2026-11-20T13:20:00.000Z",
+          "source": "timer",
+          "evidence_url": "https://example.org/synthetic/timesheet/7"
+        }
+      ],
+      "machine_charges": [
+        {
+          "id": "test-synthetic-invoice-a",
+          "amount": 2.5,
+          "currency": "GBP",
+          "billing_evidence_url": "https://example.org/synthetic/invoice/a",
+          "meter": "AI API calls"
+        },
+        {
+          "id": "test-synthetic-invoice-b",
+          "amount": 1.8,
+          "currency": "GBP",
+          "billing_evidence_url": "https://example.org/synthetic/invoice/b",
+          "meter": "Compute"
+        }
+      ],
+      "review": {
+        "reviewer_id": "synthetic-auditor",
+        "reviewed_at": "2026-11-21T00:00:00Z",
+        "review_record_url": "https://example.org/synthetic/audit/record",
+        "reviewer_is_author": false
+      }
+    }
+  ]
+}
