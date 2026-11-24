@@ -46,6 +46,12 @@ jobs:
           assert early["samples"] == 246
           assert abs(early["ai_time_ratio_minus_one"] - 0.188) < 0.003
           assert result["calibration_status"] == "partial_domain_specific"
+          hie = result["hie_task_process_diagnostics"]
+          assert hie["tasks"] == 330 and hie["developers"] == 22
+          assert len(hie["llms"]) == 3
+          assert hie["predictor_timing"]["post_execution_diagnostic"].startswith("RETROSPECTIVE ONLY")
+          print("HIE pre-execution metrics:", hie["metrics"]["story_points_llm"])
+          print("HIE retrospective diagnostics:", hie["metrics"]["post_execution_diagnostic"])
           print("COCOMO81 historical 5-fold log-RMSE:", historic["model_metrics"])
           print("METR early-2025 time ratio minus one:", early["ai_time_ratio_minus_one"])
           print("METR clustered bootstrap 95%:", early["cluster_bootstrap_95pct"])
