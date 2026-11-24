@@ -38,6 +38,8 @@ Grounding may return `not_decision_relevant`, `additional_grounding_worthwhile`,
 
 The [calibration specification](docs/CALIBRATION.md) documents COCOMO81 project-level baselines and the original 246-task METR randomised study. The calibration tool downloads immutable upstream snapshots, verifies their Git blob hashes, estimates fitted coefficients, evaluates out-of-fold prediction errors, and reports a developer-cluster bootstrap interval for the task treatment effect. It reproduces the published METR AI time ratio increase of approximately 18.8% without treating it as a universal AI multiplier. The full JSON report is published as a CI artifact.
 
+A third independent [2026 human–LLM task benchmark](docs/HIE.md) uses 330 observed task executions from 22 developers and three LLMs. It compares planning-time Story Points and assigned model against **retrospective** interaction measures, with developer-held-out folds. It explicitly prohibits using post-execution corrections as ex-ante predictors and does not claim project-level AI cost calibration.
+
 The [external evidence register](docs/EVIDENCE_SOURCES.md) identifies real public datasets and states which conclusions each supports and why they cannot be silently pooled into a global AI productivity coefficient.
 
 ## AI-native calibration research engine

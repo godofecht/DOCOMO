@@ -31,6 +31,12 @@ Source: [Abitbol and Arod (2025), Gryzzly](https://pmc.ncbi.nlm.nih.gov/articles
 
 Examples: [AIDev](https://arxiv.org/abs/2602.09185), [GitHub Agentic PR Dataset](https://github.com/mabujadallah/GitHub-Agentic-PR-Dataset), [AgentLogs](https://arxiv.org/abs/2608.29204). The projects provide PR metadata, commit/diff histories, agent lifecycle and in some cases system logs. Merge latency, commit timestamps, approval status, number of tokens and changed lines are not equivalent to independently audited engineer working minutes or a passed external acceptance suite. Can inform workload-distribution and quality-proxy studies, but should never be silently translated into true accepted-delivery cost.
 
+## G. Observed human–LLM task process effort — **eligible for exploratory AI-task benchmark only**
+
+Source: [Alaswad et al., Discover Computing (2026)](https://doi.org/10.1007/s10791-026-10331-6) and [pinned 330-row task-execution CSV](https://github.com/FeisalAlaswad/Hie_effort_estimation/blob/09e105d5a7fb3f15e5412d688dbf79d21c42329b/Task_execution_observations.csv). Contains observed task minutes, 22 developers and three LLM assignments, Story Points and logged corrective/validation/integration indicators. The study calls its analysis explanatory and exploratory, not a validated forward cost forecast.
+
+DOCOMO evaluates grouped held-out-developer error of pre-execution Story Points and assigned-model features separately from **post-execution** interaction diagnostics. Using the latter for a planning-time forecast would leak information unavailable at decision time. The CSV omits task/repository identifiers and therefore cannot establish independence of project or task families across folds. It has no unaided control, independently audited release or machine cost. Do not infer global productivity or project accepted-outcome cost. See [docs/HIE.md](HIE.md).
+
 ## Source inclusion and transportability criteria
 
 Record for each dataset: original source, exact pinned release/checksum, collection dates, actual sample/population, unit of analysis, sampling and exclusions, intervention (if any), measured outcomes vs estimates or proxies, independent acceptance provenance, cost/currency unit, missing-data mechanism, known caveats, and permitted estimands.

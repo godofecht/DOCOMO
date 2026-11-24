@@ -13,6 +13,13 @@ SOURCES = {
         'git_blob_sha1': '5676be4c602b0e24231eb1f9ee1b4e08c4ba0466',
         'description': '63 historical project observations; COCOMO I ratings, not COCOMO II',
     },
+    'hie_tasks': {
+        'repository': 'FeisalAlaswad/Hie_effort_estimation',
+        'commit': '09e105d5a7fb3f15e5412d688dbf79d21c42329b',
+        'path': 'Task_execution_observations.csv',
+        'git_blob_sha1': '428cc5078962adadd3939289b3bec0ffe6e4ead5',
+        'description': '330 observed LLM-assisted task executions by 22 developers; no task identity or unaided control',
+    },
     'metr_early': {
         'repository': 'METR/Measuring-Early-2025-AI-on-Exp-OSS-Devs',
         'commit': '7ff2d7670235f531dff77eff58355bd77392f396',
