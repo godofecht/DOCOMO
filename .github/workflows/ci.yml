@@ -15,7 +15,9 @@ jobs:
       - name: Explicitly reject synthetic production holdout calibration
         run: |
           python - <<'PY'
-          from tests.test_holdout import make_experiment
+          import sys
+          sys.path.insert(0, 'tests')
+          from test_holdout import make_experiment
           from docomo.holdout import evaluate_holdout
           try:
               evaluate_holdout(make_experiment())
