@@ -17,6 +17,7 @@ from .holdout import evaluate_holdout
 from .ledger import reconcile_ledger
 from .study_audit import audit_study_bundle
 from .prospective import freeze_protocol, check_protocol_population
+from .github_attestation import verify_github_actions_registration
 
 MODES = {
     'grounding': assess_grounding,
@@ -31,6 +32,7 @@ MODES = {
     'study-audit': audit_study_bundle,
     'protocol-freeze': freeze_protocol,
     'protocol-population': check_protocol_population,
+    'github-attest': verify_github_actions_registration,
 }
 
 
