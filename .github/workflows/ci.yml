@@ -43,6 +43,7 @@ jobs:
       - run: docomo cocomo2 examples/cocomo2-nominal.json
       - run: docomo manifest examples/project-manifest.json
       - run: docomo ledger examples/effort-ledger.json
+      - run: docomo-source-audit --help
       - run: docomo protocol-freeze examples/prospective-protocol.json
       - name: Verify attestation rules with deterministic server mock
         run: python -m unittest discover -s tests -p 'test_github_attestation.py' -v
