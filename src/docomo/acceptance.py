@@ -92,22 +92,25 @@ def _fit(train: list[dict]) -> dict:
             "training_acceptance_rate": sum(labels)/len(labels)}
 
 
-def _score(row: dict, fit: dict, offset: float = 0.0) -> float:
+def _linear(row: dict, fit: dict) -> float:
     values = _features(row)
-    z = fit["coefficients"][0] + offset + math.fsum(
+    return fit["coefficients"][0] + math.fsum(
         (v-m)/s*b
         for v,m,s,b in zip(values, fit["means"], fit["scales"],
                            fit["coefficients"][1:])
     )
-    return _sigmoid(z)
+ 
+
+
+def _score(row: dict, fit: dict, offset: float = 0.0) -> float:
+    return _sigmoid(_linear(row, fit) + offset)
 
 
 def _offset(calibration: list[dict], fit: dict) -> float:
     # Intercept-only calibration by maximizing calibration-sample Bernoulli likelihood.
     labels = [int(r["acceptance"]["accepted"]) for r in calibration]
     lo, hi = -40.0, 40.0
-    base = [_score(r, fit) for r in calibration]
-    logits = [math.log(p/(1-p)) for p in base]
+    logits = [_linear(r, fit) for r in calibration]
     target = sum(labels)
     for _ in range(100):
         middle = (lo+hi)/2
