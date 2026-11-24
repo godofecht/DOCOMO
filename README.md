@@ -67,6 +67,10 @@ The `docomo ledger` command reconciles each of seven human-effort stages against
 
 `docomo protocol-freeze` freezes inclusion and exclusion **rules** before test projects even exist. The independent `docomo protocol-population` operation compares a complete source inventory to the preregistered repositories, enrollment windows, fixed model and acceptance oracle, refusing missing eligible attempts and other unregistered exclusions. The module deliberately does **not** trust self-issued timestamps, user-supplied inventory completeness or GitHub URLs as proof of independent external registration. [Protocol design](docs/PROSPECTIVE.md).
 
+## GitHub server-side registration attestation
+
+`docomo github-attest <attestation.json>` verifies an explicit GitHub Actions **push** run ID, its GitHub-server-reported creation time, the immutable commit SHA used by the workflow run, and the exact checked-out protocol JSON at that commit. Authored/committer timestamps are ignored because Git clients can backdate them. It verifies the Git blob checksum and canonical protocol digest. The output distinguishes this provider-verified timestamp/content check from **unverified** study-population completeness, evidence authenticity and independently accepted software. See [GitHub attestation protocol](docs/GITHUB_ATTESTATION.md).
+
 ## Scope
 
 Phase 0 implements decision-theoretic grounding, observational accepted-outcome cost, and partially calibrated, strictly domain-scoped historical and AI-task models. It does not automatically interpret requirements, verify a programme, estimate unknown future costs, derive probabilities from prose, or prove that an acceptance suite covers the right specification.
