@@ -43,6 +43,10 @@ The [external evidence register](docs/EVIDENCE_SOURCES.md) identifies real publi
 
 The `native-calibrate` mode implements a prospective, strictly gated project-level human-effort regression and compares repository-group-held-out predictive errors against a size-only model and a nominal-assumptions COCOMO II reference. It requires 50+ project records, 8+ repositories, independent acceptance links and detailed non-overlapping human time accounting. Synthetic fixtures are explicitly rejected in the default production mode. **No qualified AI-native data corpus is bundled or claimed, and group CV is not an independent prospective certification.** See [docs/NATIVE.md](docs/NATIVE.md).
 
+## Prospective repository-disjoint evaluation
+
+`docomo holdout <experiment.json>` requires an explicitly selected model, immutable preregistration URL and timestamp, and three distinct sets of repository-level project manifests: `train`, `calibration`, and `test`. It fits a model **only** on training projects, constructs log-scale prediction intervals from worst accepted-project residuals by calibration repository, and evaluates the withheld test repositories once. Failed project outcomes are reported separately; all output remains conditional on acceptance. Insufficient calibration repositories produce no finite interval rather than fabricated precision. External audit of self-attested evidence and a genuinely predeclared independent test set remain required. See [holdout specification](docs/HOLDOUT.md).
+
 ## Scope
 
 Phase 0 implements decision-theoretic grounding, observational accepted-outcome cost, and partially calibrated, strictly domain-scoped historical and AI-task models. It does not automatically interpret requirements, verify a programme, estimate unknown future costs, derive probabilities from prose, or prove that an acceptance suite covers the right specification.
