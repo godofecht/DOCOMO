@@ -14,6 +14,7 @@ from .cocomo2 import estimate_cocomo_ii
 from .manifests import validate_project, assess_readiness
 from .native import calibrate_native
 from .holdout import evaluate_holdout
+from .ledger import reconcile_ledger
 
 MODES = {
     'grounding': assess_grounding,
@@ -24,6 +25,7 @@ MODES = {
     'readiness': assess_readiness,
     'native-calibrate': calibrate_native,
     'holdout': evaluate_holdout,
+    'ledger': reconcile_ledger,
 }
 
 
