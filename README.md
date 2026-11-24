@@ -21,6 +21,7 @@ docomo robust-grounding examples/robust-scheduler.json
 docomo complexity examples/strategies.json
 docomo cocomo2 examples/cocomo2-nominal.json
 docomo manifest examples/project-manifest.json
+docomo ledger examples/effort-ledger.json
 docomo readiness examples/project-manifest-list.json
 docomo native-calibrate examples/project-manifest-list.json
 docomo-calibrate --output calibration-report.json
@@ -46,6 +47,10 @@ The `native-calibrate` mode implements a prospective, strictly gated project-lev
 ## Prospective repository-disjoint evaluation
 
 `docomo holdout <experiment.json>` requires an explicitly selected model, immutable preregistration URL and timestamp, and three distinct sets of repository-level project manifests: `train`, `calibration`, and `test`. It fits a model **only** on training projects, constructs log-scale prediction intervals from worst accepted-project residuals by calibration repository, and evaluates the withheld test repositories once. Failed project outcomes are reported separately; all output remains conditional on acceptance. Insufficient calibration repositories produce no finite interval rather than fabricated precision. External audit of self-attested evidence and a genuinely predeclared independent test set remain required. See [holdout specification](docs/HOLDOUT.md).
+
+## Measurement evidence ledger
+
+The `docomo ledger` command reconciles each of seven human-effort stages against per-actor UTC work-session evidence and checks that non-overlapping time and source-linked machine billing records reproduce the project manifest totals. It explicitly labels source claims as **not independently authenticated**, rather than treating HTTPS URLs or declared reviewer independence as proof. [Evidence collection protocol](docs/LEDGER.md).
 
 ## Scope
 
