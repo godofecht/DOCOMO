@@ -20,6 +20,10 @@ Under exchangeable independent repository groups, with a fixed training-only pre
 
 The held-out evaluation reports log-RMSE, MAE and other errors on *accepted test deliveries only*, and interval coverage by accepted project and by repository. It also reports attempts, failures, and *observed* total human and machine cost including failed projects in all three cohorts. These latter quantities are descriptive and do not imply a model of future unconditional cost or probability of acceptance.
 
+## Separately evaluated acceptance probability
+
+Project failure is not zero-cost and cannot be ignored. The `acceptance_evaluation` section estimates whether a delivery passes the fixed acceptance oracle, using only planning-time features. It fits a ridge-regularized logistic model on training projects, calibrates an intercept on calibration projects and evaluates Brier/log loss on untouched test repositories; the comparator is the training-only acceptance prevalence. Adequate successful **and unsuccessful** outcomes are required: insufficient class diversity produces no acceptance model. The complete protocol and caveats are in [ACCEPTANCE.md](ACCEPTANCE.md). This is observational, not a causal AI productivity estimator, and does not convert acceptance probabilities into unconditional project cost.
+
 ## Guardrails
 
 Requires at least eight training repositories and 30 accepted training projects, ten accepted calibration projects, and four held-out test repositories. Rejects duplicate project IDs, any repository spanning multiple partitions, incompatible domains/currencies, non-positive accepted human effort, missing feature data, invalid date formats, and explicitly synthetic records in production CLI mode. Finite 90% group intervals require at least nine calibration repositories containing accepted projects. Structural thresholds are provisional checks, **not** formal statistical-power guarantees.

@@ -16,6 +16,7 @@ from typing import Any
 from .calibration import _metrics, _ols
 from .manifests import validate_project
 from .native import _vector, _prediction
+from .acceptance import evaluate_acceptance
 
 MODELS = ("docomo_scope", "size_only", "cocomo2_nominal_assumptions")
 
@@ -88,8 +89,8 @@ def _group_quantile(calibration: list[dict], name: str, beta: list[float] | None
 def evaluate_holdout(experiment: Mapping[str, Any], *, allow_synthetic: bool = False) -> dict:
     """Evaluate a *preselected* effort model on untouched, repository-disjoint projects.
 
-    Only supports human minutes conditional on acceptance. Does not estimate
-    acceptance probability, expected delivery schedule, or machine expenditure.
+    Accepted-conditional human effort and a separate, optional observed
+    acceptance probability model. No unconditional project cost or schedule.
     Caller assertions about independent acceptance/preregistration are NOT audited.
     """
     if not isinstance(experiment, Mapping) or experiment.get("schema_version") != "1.0":
@@ -147,9 +148,11 @@ def evaluate_holdout(experiment: Mapping[str, Any], *, allow_synthetic: bool = F
         raise ValueError("test requires at least 4 independent repositories")
     if sum(r["acceptance"]["accepted"] for r in calibration) < 10:
         raise ValueError("calibration requires at least 10 accepted projects")
+    acceptance_evaluation = evaluate_acceptance(train, calibration, test)
     if not any(r["acceptance"]["accepted"] for r in test):
         return {"status": "no_test_accepted_deliveries", "test_outcomes": _rate(test),
-                "model": model, "coefficients": None, "independent_audit": False}
+                "model": model, "coefficients": None, "independent_audit": False,
+                "acceptance_evaluation": acceptance_evaluation}
     fitted = _fit(train, model)
     quantile = _group_quantile(calibration, model, fitted, confidence)
     actual, forecasts = [], []
@@ -193,6 +196,7 @@ def evaluate_holdout(experiment: Mapping[str, Any], *, allow_synthetic: bool = F
         "test_metrics_conditional_on_acceptance": _metrics(actual, forecasts),
         "test_interval_evaluation": intervals,
         "test_accepted_repositories": len(observed_by_repo),
+        "acceptance_evaluation": acceptance_evaluation,
         "domain": all_rows[0]["domain"],
         "warnings": [
             "Only the preselected model is evaluated. Choose all hyperparameters before looking at the test set.",
@@ -200,6 +204,7 @@ def evaluate_holdout(experiment: Mapping[str, Any], *, allow_synthetic: bool = F
             "Test coverage from few independent repositories has substantial statistical uncertainty.",
             "Intervals describe human effort CONDITIONAL ON acceptance, not unconditional delivery cost.",
             "Costs on unaccepted projects are reported, but no unconditional future project forecast is produced.",
+            "Acceptance probabilities, when estimable, come from separately trained and calibrated observational labels.",
             "Registration and independent acceptance are self-attested and require external audit.",
             "Changing acceptance criteria, model versions, or project populations invalidates transportability.",
         ],
