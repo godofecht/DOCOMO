@@ -71,6 +71,10 @@ The `docomo ledger` command reconciles each of seven human-effort stages against
 
 `docomo github-attest <attestation.json>` verifies an explicit GitHub Actions **push** run ID, its GitHub-server-reported creation time, the immutable commit SHA used by the workflow run, and the exact checked-out protocol JSON at that commit. Authored/committer timestamps are ignored because Git clients can backdate them. It verifies the Git blob checksum and canonical protocol digest. The output distinguishes this provider-verified timestamp/content check from **unverified** study-population completeness, evidence authenticity and independently accepted software. See [GitHub attestation protocol](docs/GITHUB_ATTESTATION.md).
 
+## Primary evidence file verification
+
+`docomo-source-audit` now requires source **file bytes** behind every human time entry, machine invoice, review record, and acceptance report. SHA-256 checks match copies to ledger entries, reject missing or tampered source files and unsafe local paths, and report duplicate bytes used for multiple sources. It does not authenticate the external publisher or prove the files are truthful. See [docs/SOURCE_AUDIT.md](docs/SOURCE_AUDIT.md).
+
 ## Scope
 
 Phase 0 implements decision-theoretic grounding, observational accepted-outcome cost, and partially calibrated, strictly domain-scoped historical and AI-task models. It does not automatically interpret requirements, verify a programme, estimate unknown future costs, derive probabilities from prose, or prove that an acceptance suite covers the right specification.
