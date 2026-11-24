@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "protocol_id": "synthetic-cohort-example-v1",
+  "registered_at": "2026-11-22T00:00:00Z",
+  "registration_uri": "https://example.org/illustrative-registration",
+  "domain": "synthetic/example",
+  "currency": "GBP",
+  "acceptance_oracle_commit": "2222222222222222222222222222222222222222",
+  "acceptance_owner": "illustrative-external-evaluator",
+  "selected_model": "docomo_scope",
+  "target_repository_coverage": 0.9,
+  "cohorts": {
+    "train": {
+      "repositories": [
+        "example/train-repo"
+      ],
+      "enrollment_start": "2026-11-01T00:00:00Z",
+      "enrollment_end": "2026-11-22T00:00:00Z"
+    },
+    "calibration": {
+      "repositories": [
+        "example/calibration-repo"
+      ],
+      "enrollment_start": "2026-11-01T00:00:00Z",
+      "enrollment_end": "2026-11-22T00:00:00Z"
+    },
+    "test": {
+      "repositories": [
+        "example/test-repo"
+      ],
+      "enrollment_start": "2026-11-22T00:00:00Z",
+      "enrollment_end": "2026-12-01T00:00:00Z"
+    }
+  },
+  "measurement_policy": {
+    "human_effort_stages": [
+      "specification",
+      "implementation",
+      "verification",
+      "integration",
+      "orchestration",
+      "rework",
+      "assurance"
+    ],
+    "human_time_unit": "minutes",
+    "machine_cost_currency": "GBP",
+    "all_failed_attempts_included": true,
+    "source_ledger_required": true
+  }
+}

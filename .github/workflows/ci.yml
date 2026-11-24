@@ -43,6 +43,7 @@ jobs:
       - run: docomo cocomo2 examples/cocomo2-nominal.json
       - run: docomo manifest examples/project-manifest.json
       - run: docomo ledger examples/effort-ledger.json
+      - run: docomo protocol-freeze examples/prospective-protocol.json
       - name: Reject synthetic multi-project audits in production CLI
         run: |
           if docomo study-audit examples/study-bundle.json; then

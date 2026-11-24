@@ -22,6 +22,7 @@ docomo complexity examples/strategies.json
 docomo cocomo2 examples/cocomo2-nominal.json
 docomo manifest examples/project-manifest.json
 docomo ledger examples/effort-ledger.json
+docomo protocol-freeze examples/prospective-protocol.json
 docomo readiness examples/project-manifest-list.json
 docomo native-calibrate examples/project-manifest-list.json
 docomo-calibrate --output calibration-report.json
@@ -61,6 +62,10 @@ The `docomo ledger` command reconciles each of seven human-effort stages against
 ## Study-wide evidence integrity
 
 `docomo study-audit <bundle.json>` reconciles **every** project in training, calibration and test against a detailed human/machine activity ledger. It verifies study-wide unique event IDs, no contributor-time double counting across projects, compatible data domains, independent repository partitions and a canonical SHA256 fingerprint of planning-time features **excluding observed outcomes**. It refuses synthetic production evidence and returns `cost_ledgers_and_planning_reconciled_not_authenticated`, never a certificate of external preregistration. See [the study audit protocol](docs/STUDY_AUDIT.md).
+
+## Pre-outcome selection and study enrollment
+
+`docomo protocol-freeze` freezes inclusion and exclusion **rules** before test projects even exist. The independent `docomo protocol-population` operation compares a complete source inventory to the preregistered repositories, enrollment windows, fixed model and acceptance oracle, refusing missing eligible attempts and other unregistered exclusions. The module deliberately does **not** trust self-issued timestamps, user-supplied inventory completeness or GitHub URLs as proof of independent external registration. [Protocol design](docs/PROSPECTIVE.md).
 
 ## Scope
 
