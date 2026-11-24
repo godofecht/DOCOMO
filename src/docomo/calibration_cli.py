@@ -9,6 +9,7 @@ from typing import Sequence
 
 from .calibration import calibrate_ai_tasks, calibrate_projects, read_cocomo81, read_metr_early
 from .datasets import fetch_dataset, provenance
+from .hie import read_hie_tasks, benchmark_hie_tasks
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -21,12 +22,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         cocomo = fetch_dataset('cocomo81', args.dataset_dir, args.offline)
         metr = fetch_dataset('metr_early', args.dataset_dir, args.offline)
+        hie = fetch_dataset('hie_tasks', args.dataset_dir, args.offline)
         result = {
             'schema_version': '1.0',
             'calibration_status': 'partial_domain_specific',
             'provenance': provenance(),
             'historical_effort': calibrate_projects(read_cocomo81(cocomo)),
             'early_ai_task_time': calibrate_ai_tasks(read_metr_early(metr), replicates=args.bootstrap),
+            'hie_task_process_diagnostics': benchmark_hie_tasks(read_hie_tasks(hie)),
             'cannot_claim': ['AI-native project effort calibration', 'universal AI speed multiplier',
                              'modern COCOMO II validation', 'independently verified task acceptance',
                              'calibrated grounding probabilities or value weights'],
