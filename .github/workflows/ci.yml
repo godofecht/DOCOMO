@@ -43,6 +43,12 @@ jobs:
       - run: docomo cocomo2 examples/cocomo2-nominal.json
       - run: docomo manifest examples/project-manifest.json
       - run: docomo ledger examples/effort-ledger.json
+      - name: Reject synthetic multi-project audits in production CLI
+        run: |
+          if docomo study-audit examples/study-bundle.json; then
+            echo "Synthetic study bundle was improperly accepted"
+            exit 1
+          fi
       - run: docomo native-calibrate examples/project-manifest-list.json
       - name: Calibrate on immutable upstream public datasets
         run: docomo-calibrate --output calibration-report.json
