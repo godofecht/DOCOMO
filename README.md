@@ -75,6 +75,17 @@ The `docomo ledger` command reconciles each of seven human-effort stages against
 
 `docomo-source-audit` now requires source **file bytes** behind every human time entry, machine invoice, review record, and acceptance report. SHA-256 checks match copies to ledger entries, reject missing or tampered source files and unsafe local paths, and report duplicate bytes used for multiple sources. It does not authenticate the external publisher or prove the files are truthful. See [docs/SOURCE_AUDIT.md](docs/SOURCE_AUDIT.md).
 
+## Real evaluated projects and adversarial model amendments
+
+`docomo-projects` fetches four immutable, checksum-verified original datasets and exports **736 actual completed-project effort records** (63 COCOMO81, 93 NASA93, 499 China and 81 Desharnais), retaining separate units and warning about possible repeated projects across sources. It runs leave-one-completion-year-out validation where a year exists and clearly labelled retrospective ID-group folds otherwise. [Source and validation rules](docs/REAL_PROJECTS.md).
+
+`docomo-scrutiny` recomputes all those historical benchmarks and challenges a versioned amendment proposal, publishing **negative results and regressions** as first-class evidence. Historic improvements cannot automatically promote a model for AI-native project cost estimation. The [evidence registry](catalog/evidence_registry.json) also distinguishes real developer-time trials, industrial actual-hours story estimates awaiting original-file ingestion, and functional-code acceptance suites such as SWE-bench Verified from actual total project effort. [Evolution protocol](docs/AMENDMENT_GOVERNANCE.md).
+
+```sh
+docomo-projects --output real-project-results.json --records-output real-project-cases.json
+docomo-scrutiny --output amendment-scrutiny-report.json
+```
+
 ## Scope
 
 Phase 0 implements decision-theoretic grounding, observational accepted-outcome cost, and partially calibrated, strictly domain-scoped historical and AI-task models. It does not automatically interpret requirements, verify a programme, estimate unknown future costs, derive probabilities from prose, or prove that an acceptance suite covers the right specification.

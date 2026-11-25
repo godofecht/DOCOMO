@@ -20,6 +20,27 @@ SOURCES = {
         'git_blob_sha1': '428cc5078962adadd3939289b3bec0ffe6e4ead5',
         'description': '330 observed LLM-assisted task executions by 22 developers; no task identity or unaided control',
     },
+    'nasa93': {
+        'repository': 'Derek-Jones/Software-estimation-datasets',
+        'commit': 'e3fbd4faa2a5aec94b06535369664c3ebbcbac39',
+        'path': 'nasa93.arff',
+        'git_blob_sha1': 'cf677e462edbe7623a5707c341c22569816aa566',
+        'description': '93 historical NASA projects; COCOMO I ratings and observed person-months; potential overlap with COCOMO81',
+    },
+    'china': {
+        'repository': 'Derek-Jones/Software-estimation-datasets',
+        'commit': 'e3fbd4faa2a5aec94b06535369664c3ebbcbac39',
+        'path': 'china.arff',
+        'git_blob_sha1': '196189a78f70d8c84632914876077ad1f6b8aed7',
+        'description': '499 historical China projects with observed effort in person-hours; N_effort is a different normalized outcome',
+    },
+    'desharnais': {
+        'repository': 'Derek-Jones/Software-estimation-datasets',
+        'commit': 'e3fbd4faa2a5aec94b06535369664c3ebbcbac39',
+        'path': 'Desharnais.csv',
+        'git_blob_sha1': '423ed4c60a4e6493bd41a0c62caf750ad7ec40c9',
+        'description': '81 historical Canadian completed projects; actual effort person-hours, missing experience coded -1',
+    },
     'metr_early': {
         'repository': 'METR/Measuring-Early-2025-AI-on-Exp-OSS-Devs',
         'commit': '7ff2d7670235f531dff77eff58355bd77392f396',
