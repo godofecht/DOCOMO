@@ -65,7 +65,7 @@ class RepairScoringTests(unittest.TestCase):
         report["incomplete_ids"]=[]
         report["submitted_ids"].pop()
         report["submitted_instances"]=499
-        with self.assertRaisesRegex(ValueError,"outcome categories"):
+        with self.assertRaisesRegex(ValueError,"incomplete cases"):
             score(inventory,report)
 
     def test_counts_must_match_exact_case_lists(self):
