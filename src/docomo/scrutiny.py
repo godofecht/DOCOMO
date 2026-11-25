@@ -104,7 +104,7 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
         raise ValueError("cannot promote unlabelled or non-historical benchmark data")
     source_check = validate_evidence_registry(registry, dict(report))
     benchmark = report.get("evaluations", {})
-    if benchmark.get("status") != "retrospective_legacy_benchmarks_not_ai_native":
+    if benchmark.get("status") != "retrospective_legacy_benchmarks_not_ai_native_calibration":
         raise ValueError("requires actual completed-project heldout benchmark report")
     data = benchmark.get("cohort_results", {})
     if set(data) != set(PROJECT_SOURCES):
