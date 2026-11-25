@@ -30,7 +30,7 @@ def toy_report(ratio_by_domain=None):
     return {
         "calibration_status": "historical_real_effort_retrospective_not_ai_native",
         "source_data":{"datasets":datasets},
-        "evaluations":{"status":"retrospective_legacy_benchmarks_not_ai_native",
+        "evaluations":{"status":"retrospective_legacy_benchmarks_not_ai_native_calibration",
                        "cohort_results":outcomes},
     }
 
