@@ -3,3 +3,7 @@ calibration-report.json
 *.egg-info/
 __pycache__/
 *.py[cod]
+
+real-project-results.json
+real-project-cases.json
+amendment-scrutiny-report.json
