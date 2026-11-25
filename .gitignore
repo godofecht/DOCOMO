@@ -7,3 +7,7 @@ __pycache__/
 real-project-results.json
 real-project-cases.json
 amendment-scrutiny-report.json
+
+verified-repair-index.json
+local-repair-prompts.jsonl
+local-repair-metadata.json
