@@ -98,6 +98,10 @@ docomo-repairs --agent-prompts-output local-repair-prompts.jsonl --index-output 
 
 See [docs/REPAIR_CASES.md](docs/REPAIR_CASES.md) for the evaluation boundary.
 
+## Evaluation outcome intake and honest failure accounting
+
+Once an independent evaluator runs the official SWE-bench harness, `docomo-score-repairs` can score its genuine `results.json` (schema version 2) against the pinned 500-case inventory. It refuses unknown or omitted instance IDs, overlap between pass/fail/error categories, inflated counts or a changed source revision. **All 500 cases remain in the denominator**, including evaluation failures and unsubmitted patches. Scores stay marked *run logs unverified* until an independent auditor checks the actual official Docker/test logs and sandbox policy. See [docs/REPAIR_SCORING.md](docs/REPAIR_SCORING.md).
+
 ## Scope
 
 Phase 0 implements decision-theoretic grounding, observational accepted-outcome cost, and partially calibrated, strictly domain-scoped historical and AI-task models. It does not automatically interpret requirements, verify a programme, estimate unknown future costs, derive probabilities from prose, or prove that an acceptance suite covers the right specification.
