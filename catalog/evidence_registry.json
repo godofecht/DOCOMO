@@ -1,0 +1,223 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Tiered catalog of actually observed or independently evaluated software work; sample counts represent observations not independent unique projects",
+  "domains": [
+    {
+      "id": "cocomo81",
+      "unit_of_analysis": "completed_project",
+      "observed": 63,
+      "label": "person_months",
+      "verification": "published_actual_effort",
+      "data_status": "source_pinned_ingested",
+      "dataset": "Derek-Jones/Software-estimation-datasets",
+      "provenance": "git_blob_sha1_verified",
+      "independent_acceptance": false,
+      "measured_ai_use": false,
+      "eligible": [
+        "historical_cost_backtest"
+      ],
+      "blocked": [
+        "ai_native_project_cost",
+        "functional_acceptance",
+        "modern_causal_ai"
+      ]
+    },
+    {
+      "id": "nasa93",
+      "unit_of_analysis": "completed_project",
+      "observed": 93,
+      "label": "person_months",
+      "verification": "published_actual_effort",
+      "data_status": "source_pinned_ingested",
+      "dataset": "Derek-Jones/Software-estimation-datasets",
+      "provenance": "git_blob_sha1_verified",
+      "independent_acceptance": false,
+      "measured_ai_use": false,
+      "eligible": [
+        "historical_cost_backtest"
+      ],
+      "blocked": [
+        "ai_native_project_cost",
+        "functional_acceptance",
+        "modern_causal_ai"
+      ]
+    },
+    {
+      "id": "china",
+      "unit_of_analysis": "completed_project",
+      "observed": 499,
+      "label": "person_hours",
+      "verification": "published_actual_effort",
+      "data_status": "source_pinned_ingested",
+      "dataset": "Derek-Jones/Software-estimation-datasets",
+      "provenance": "git_blob_sha1_verified",
+      "independent_acceptance": false,
+      "measured_ai_use": false,
+      "eligible": [
+        "historical_cost_backtest"
+      ],
+      "blocked": [
+        "ai_native_project_cost",
+        "functional_acceptance",
+        "modern_causal_ai"
+      ]
+    },
+    {
+      "id": "desharnais",
+      "unit_of_analysis": "completed_project",
+      "observed": 81,
+      "label": "person_hours",
+      "verification": "published_actual_effort",
+      "data_status": "source_pinned_ingested",
+      "dataset": "Derek-Jones/Software-estimation-datasets",
+      "provenance": "git_blob_sha1_verified",
+      "independent_acceptance": false,
+      "measured_ai_use": false,
+      "eligible": [
+        "historical_cost_backtest"
+      ],
+      "blocked": [
+        "ai_native_project_cost",
+        "functional_acceptance",
+        "modern_causal_ai"
+      ]
+    },
+    {
+      "id": "metr_early",
+      "unit_of_analysis": "randomized_developer_task",
+      "observed": 246,
+      "label": "developer_task_minutes",
+      "verification": "controlled_trial",
+      "data_status": "source_pinned_ingested",
+      "dataset": "METR/Measuring-Early-2025-AI-on-Exp-OSS-Devs",
+      "provenance": "git_blob_sha1_verified",
+      "independent_acceptance": false,
+      "measured_ai_use": true,
+      "eligible": [
+        "task_time_effect_2025_environment"
+      ],
+      "blocked": [
+        "whole_project_cost",
+        "universal_ai_multiplier"
+      ]
+    },
+    {
+      "id": "hie_tasks",
+      "unit_of_analysis": "llm_assisted_task_execution",
+      "observed": 330,
+      "label": "observed_task_minutes",
+      "verification": "observed_exploratory",
+      "data_status": "source_pinned_ingested",
+      "dataset": "FeisalAlaswad/Hie_effort_estimation",
+      "provenance": "git_blob_sha1_verified",
+      "independent_acceptance": false,
+      "measured_ai_use": true,
+      "eligible": [
+        "task_duration_exploratory",
+        "hindsight_feature_audit"
+      ],
+      "blocked": [
+        "whole_project_cost",
+        "causal_ai_speedup",
+        "unobserved_acceptance"
+      ]
+    },
+    {
+      "id": "mendeley_industrial_stories",
+      "unit_of_analysis": "user_story_within_completed_project",
+      "observed": null,
+      "study_projects": 10,
+      "label": "actual_story_person_hours_and_human_ai_estimates",
+      "verification": "retrospective_observed_effort_and_estimators",
+      "data_status": "identified_source_not_ingested",
+      "dataset": "doi:10.17632/ytmwsf2997.2",
+      "url": "https://data.mendeley.com/datasets/ytmwsf2997/2",
+      "license": "CC BY 4.0",
+      "provenance": "publication_metadata_verified_file_bytes_not_yet_retrieved",
+      "independent_acceptance": false,
+      "measured_ai_use": false,
+      "eligible": [
+        "planning_estimation_accuracy_after_file_audit"
+      ],
+      "blocked": [
+        "ai_assisted_development_productivity",
+        "overall_project_acceptance_cost"
+      ],
+      "note": "AI tools produced independent estimates for projects already completed; downloading and auditing the original XLSX is required before any numerical claims"
+    },
+    {
+      "id": "swe_bench_verified",
+      "unit_of_analysis": "repository_issue_resolution",
+      "observed": 500,
+      "label": "pass_fail_patch_test_suite",
+      "verification": "human_validated_solvable_test_cases",
+      "data_status": "identified_source_not_ingested",
+      "dataset": "SWE-bench/SWE-bench_Verified",
+      "url": "https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified",
+      "provenance": "public_dataset_card",
+      "independent_acceptance": true,
+      "measured_ai_use": false,
+      "eligible": [
+        "functional_repair_acceptance_after_pin_and_replay"
+      ],
+      "blocked": [
+        "development_person_hours",
+        "whole_project_cost"
+      ],
+      "note": "Human-validated issue solvability is not an independently witnessed entire-project delivery; successful agent-run labels require evaluator traces"
+    },
+    {
+      "id": "swe_bench_pro",
+      "unit_of_analysis": "repository_level_issue_resolution",
+      "observed": 1865,
+      "label": "pass_fail_patch_test_suite",
+      "verification": "benchmark_human_review_and_evaluation",
+      "data_status": "reported_partially_access_restricted",
+      "dataset": "SWE-Bench Pro",
+      "url": "https://labs.scale.com/leaderboard/swe_bench_pro_public_v2",
+      "provenance": "benchmark_publication",
+      "independent_acceptance": true,
+      "measured_ai_use": false,
+      "eligible": [
+        "functional_repair_acceptance_when_public_replay_available"
+      ],
+      "blocked": [
+        "development_person_hours",
+        "whole_project_cost",
+        "assume_all_1865_public"
+      ],
+      "note": "Contains public, commercial and held-out subsets; do not conflate benchmark size with publicly replayable set"
+    },
+    {
+      "id": "swe_bench_live",
+      "unit_of_analysis": "repository_issue_resolution",
+      "observed": null,
+      "label": "pass_fail_patch_test_suite",
+      "verification": "rolling_repository_issue_evaluation",
+      "data_status": "identified_source_not_ingested",
+      "dataset": "SWE-bench-Live/SWE-bench-Live",
+      "url": "https://huggingface.co/datasets/SWE-bench-Live/SWE-bench-Live",
+      "provenance": "live_dataset_card",
+      "independent_acceptance": true,
+      "measured_ai_use": false,
+      "eligible": [
+        "prospective_repair_acceptance_after_snapshot_pin"
+      ],
+      "blocked": [
+        "development_person_hours",
+        "whole_project_cost",
+        "assume_rolling_dataset_immutable"
+      ],
+      "note": "Continuously updated evaluation; freeze snapshot and evaluation date before using for release comparison"
+    }
+  ],
+  "cross_domain_rules": {
+    "no_unit_conversion_without_declaration": true,
+    "no_overlap_count_as_unique": true,
+    "no_project_cost_imputation_from_issue_tests": true,
+    "no_ai_effect_transport_from_task_to_project": true,
+    "no_model_upgrade_without_untouched_cohort": true,
+    "no_hindsight_features_as_planning_predictors": true
+  },
+  "counting_note": "The four historical sources contain 736 project records, not a proven set of 736 independent non-overlapping projects; task and issue counts are separate units of analysis."
+}
