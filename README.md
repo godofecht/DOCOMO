@@ -86,6 +86,18 @@ docomo-projects --output real-project-results.json --records-output real-project
 docomo-scrutiny --output amendment-scrutiny-report.json
 ```
 
+## Human-validated real repository repairs
+
+With the optional `pyarrow` package, `docomo-repairs` retrieves a SHA-256-pinned **500-case SWE-bench Verified** snapshot and produces a real issue/commit inventory covering distinct repositories. Gold patch and test bytes never enter candidate-agent exports. The records support independent **functional repair acceptance** through the official SWE-bench test harness, but contain neither observed human effort nor machine costs. No agent success rates are claimed without replay logs.
+
+```sh
+pip install -e '.[repair]'
+docomo-repairs --index-output verified-repair-index.json
+docomo-repairs --agent-prompts-output local-repair-prompts.jsonl --index-output local-repair-metadata.json
+```
+
+See [docs/REPAIR_CASES.md](docs/REPAIR_CASES.md) for the evaluation boundary.
+
 ## Scope
 
 Phase 0 implements decision-theoretic grounding, observational accepted-outcome cost, and partially calibrated, strictly domain-scoped historical and AI-task models. It does not automatically interpret requirements, verify a programme, estimate unknown future costs, derive probabilities from prose, or prove that an acceptance suite covers the right specification.
