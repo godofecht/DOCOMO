@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "proposal_id": "legacy-driver-vs-size-001",
+  "hypothesis": "Measured scope/coupling/complexity drivers improve retrospective human-effort prediction relative to a size-only baseline across independent historical source domains. Any failure or regression must remain publicly visible.",
+  "target": "historical_project_human_effort",
+  "champion": "size_only",
+  "challenger": "size_and_observed_drivers",
+  "domains": [
+    "cocomo81",
+    "nasa93",
+    "china",
+    "desharnais"
+  ],
+  "minimum_improvement_fraction": 0.02,
+  "maximum_allowed_regression_fraction": 0.05,
+  "minimum_improving_domains": 3,
+  "scope": "Research screening of historical COCOMO I, NASA93, China and Desharnais only. Never infer modern AI-native project cost or independent software acceptance.",
+  "proposed_feature_timing": "historical_recorded_or_unknown"
+}
