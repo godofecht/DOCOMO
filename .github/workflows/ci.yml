@@ -81,6 +81,47 @@ jobs:
         run: |
           docomo-forecast --report calibration-report.json --input examples/forecast-task.json
           docomo-forecast --report calibration-report.json --input examples/forecast-historical.json
+      - name: Evaluate actual published completed projects with isolated cost units
+        run: |
+          docomo-projects --output real-project-results.json --records-output real-project-cases.json
+          python - <<'PY'
+          import json
+          report = json.load(open('real-project-results.json'))
+          source = report['source_data']
+          assert source['project_observations'] == 736
+          assert len(source['datasets']) == 4
+          assert report['calibration_status'] == 'historical_real_effort_retrospective_not_ai_native'
+          for name, domain in report['evaluations']['cohort_results'].items():
+              assert domain['metrics']['size_only']['n'] == domain['n']
+              assert domain['metrics']['size_and_observed_drivers']['n'] == domain['n']
+              print(name, 'projects:', domain['n'],
+                    'size log-RMSE:', domain['metrics']['size_only']['log_rmse'],
+                    'driver log-RMSE:', domain['metrics']['size_and_observed_drivers']['log_rmse'],
+                    'cost unit:', domain['unit'],
+                    'validation:', domain['evaluation'])
+          PY
+      - name: Scrutinize a source-pinned amendment and explicitly block automatic release
+        run: |
+          docomo-scrutiny --output amendment-scrutiny-report.json
+          python - <<'PY'
+          import json
+          report = json.load(open('amendment-scrutiny-report.json'))
+          assert not report['requested_model_upgrade_automatically_authorized']
+          assert report['release_status'] == 'research_candidate_not_eligible_for_ai_native_release'
+          assert len(report['datasets_scrutinized']) == 4
+          print('Candidate positive domains:', report['positive_domains'])
+          print('Substantial regressions:', report['substantial_regressions'])
+          for item in report['datasets_scrutinized']:
+              print(item['dataset'], item['relative_improvement_fraction'],
+                    'negative:', item['negative_result'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docomo-real-project-amendment-scrutiny
+          path: |
+            real-project-results.json
+            real-project-cases.json
+            amendment-scrutiny-report.json
       - uses: actions/upload-artifact@v4
         with:
           name: docomo-public-calibration
