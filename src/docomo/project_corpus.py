@@ -137,7 +137,7 @@ def read_historical_projects(name: str, path: Path) -> list[dict]:
                         for field in ("input", "output", "enquiry", "file", "interface")}
             rows.append(_record(
                 name, identifier, _positive(row["effort"], "Effort"), "person_hours",
-                _positive(row["afp"], "AFP_function_points"),
+                _positive(row["afp"], "AFP"), "AFP_function_points",
                 features, f"id_mod5:{identifier % 5}",
                 {"fold_policy": "id_mod5_not_prospective",
                  "n_effort_excluded": True, "project_dates_unavailable": True},
