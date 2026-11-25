@@ -1,0 +1,47 @@
+name: Falsifiable DOCOMO model amendment
+description: Challenge or propose a model change backed by independently traceable evidence
+title: "[Amendment] "
+body:
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Falsifiable hypothesis and mechanism
+      description: State what prediction should improve, why, and under what circumstances it should fail.
+      placeholder: "Compared with size-only effort, preplanned verification obligations reduce held-out log-RMSE..."
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Estimand, population and exact units
+      description: Distinguish whole-project effort, task duration, and independently accepted functionality. Specify the use-domain and exclusions.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Actual evaluated projects and provenance
+      description: Link exact immutable source commits/hashes, dataset versions, case IDs, original measurements and known overlaps.
+    validations:
+      required: true
+  - type: textarea
+    id: challenger
+    attributes:
+      label: Locked champion, challenger and failure criteria
+      description: Include predeclared error metric, improvement threshold, regression budget, holdout grouping and predictor timing.
+    validations:
+      required: true
+  - type: textarea
+    id: falsifiers
+    attributes:
+      label: Counterexamples, adverse cohorts and missing evidence
+      description: State where the model fails, where assumptions cannot be audited, and what data would refute this amendment.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Independent validation and possible rollback
+      description: Identify real reviewers and acceptance oracles; outline monitoring, reversal triggers and release scope. Never claim review that has not happened.
+    validations:
+      required: true
