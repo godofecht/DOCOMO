@@ -124,6 +124,7 @@ jobs:
             amendment-scrutiny-report.json
       - name: Install optional Parquet support for independent human-validated repair inventory
         run: python -m pip install -e '.[repair]'
+      - run: docomo-score-repairs --help
       - name: Verify original 500 real source-repository repair cases without gold-patch leakage
         run: |
           docomo-repairs --index-output verified-repair-index.json

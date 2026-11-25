@@ -11,3 +11,5 @@ amendment-scrutiny-report.json
 verified-repair-index.json
 local-repair-prompts.jsonl
 local-repair-metadata.json
+
+scored-repair-run.json
