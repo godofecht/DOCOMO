@@ -151,20 +151,23 @@
       "observed": 500,
       "label": "pass_fail_patch_test_suite",
       "verification": "human_validated_solvable_test_cases",
-      "data_status": "identified_source_not_ingested",
+      "data_status": "source_pinned_ingested",
       "dataset": "SWE-bench/SWE-bench_Verified",
       "url": "https://huggingface.co/datasets/SWE-bench/SWE-bench_Verified",
-      "provenance": "public_dataset_card",
+      "provenance": "huggingface_git_revision_and_parquet_sha256_verified",
       "independent_acceptance": true,
       "measured_ai_use": false,
       "eligible": [
-        "functional_repair_acceptance_after_pin_and_replay"
+        "human_validated_repair_inventory",
+        "functional_repair_acceptance_after_official_harness_replay"
       ],
       "blocked": [
         "development_person_hours",
         "whole_project_cost"
       ],
-      "note": "Human-validated issue solvability is not an independently witnessed entire-project delivery; successful agent-run labels require evaluator traces"
+      "note": "Human-validated issue solvability is not an independently witnessed entire-project delivery; successful agent-run labels require evaluator traces",
+      "source_revision": "78f471bf655a3137b2e8a75af1501690ec009ec3",
+      "source_sha256": "030cfd7f2a704c4c0226e7f104c725a3b41230b1d3517f9c915ad7ea5be3fa25"
     },
     {
       "id": "swe_bench_pro",
