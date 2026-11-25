@@ -122,6 +122,31 @@ jobs:
             real-project-results.json
             real-project-cases.json
             amendment-scrutiny-report.json
+      - name: Install optional Parquet support for independent human-validated repair inventory
+        run: python -m pip install -e '.[repair]'
+      - name: Verify original 500 real source-repository repair cases without gold-patch leakage
+        run: |
+          docomo-repairs --index-output verified-repair-index.json
+          python - <<'PY'
+          import json
+          cases = json.load(open('verified-repair-index.json'))
+          assert cases['repair_issues'] == 500
+          assert cases['evaluated_agent_runs'] == 0
+          assert cases['original_human_effort_minutes_available'] is False
+          assert cases['repository_count'] == 12
+          assert len(cases['cases']) == 500
+          for c in cases['cases']:
+              assert c['gold_patch_sha256'] and c['gold_test_patch_sha256']
+              assert c['developer_human_minutes'] is None
+              assert c['machine_expenditure'] is None
+              assert 'problem_statement' not in c and 'patch' not in c
+          print('Human-validated real repair issue metadata:', cases['repair_issues'])
+          print('Distinct source repositories:', cases['repository_count'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docomo-real-repair-inventory
+          path: verified-repair-index.json
       - uses: actions/upload-artifact@v4
         with:
           name: docomo-public-calibration
