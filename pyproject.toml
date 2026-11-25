@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "docomo"
-version = "0.12.0"
+version = "0.13.0"
 description = "Evidence-grounded software complexity and domain-specific cost calibration"
 requires-python = ">=3.11"
 
@@ -15,6 +15,10 @@ docomo-forecast = "docomo.forecast_cli:main"
 docomo-source-audit = "docomo.source_cli:main"
 docomo-projects = "docomo.projects_cli:main"
 docomo-scrutiny = "docomo.scrutiny_cli:main"
+docomo-repairs = "docomo.repair_cli:main"
+
+[project.optional-dependencies]
+repair = ["pyarrow>=17"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
