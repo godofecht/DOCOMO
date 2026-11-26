@@ -137,7 +137,7 @@ def audit_forward_intervals(source: Mapping[str,Any], *,
             unavailable_cases+=int(not all_have_interval)
         for item in test:
             for model in MODELS:
-                history[model].append(abs(math.log(item["actual_effort"]/item["predictions"][model])))
+                history[model].append(abs(math.log(item["actual_effort"])-math.log(item["predictions"][model])))
         seen_years+=1
 
     results={}
