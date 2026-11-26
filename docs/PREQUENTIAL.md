@@ -33,3 +33,16 @@ Calendar completion-year grouping is coarse and does not authenticate planning-t
 A project that receives no finite interval cannot be counted as successful coverage, and a model may have apparent high coverage merely by returning excessively wide bounds. Compare measured width and coverage jointly, plus point error and acceptance failures. A source with insufficient earlier residuals is explicitly unscored rather than supplemented with residuals from the future.
 
 The real AI-native successor requires prospective acceptance-conditioned cost intervals across independent repositories, with a separately estimated project failure probability and full accounting of verification and inference spending. This module is a reusable scrutiny pattern and a stronger diagnostic for historical costs, **not** evidence that AI-native accepted-system delivery uncertainty has already been calibrated.
+
+## Original source-pinned diagnostic results (26 November 2026)
+
+With an **80% nominal** interval target and the locked 12-prior-residual/two-earlier-year requirements, the actual historical time-forward run produced:
+
+| Dataset | Out-of-time projects | Finite intervals | Refused intervals | Empirical driver-model coverage over finite subset | Size-only coverage over finite subset |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| NASA93 | 30 | 16 | 14 | 16/16 (100%) | 16/16 (100%) |
+| Desharnais | 49 | 5 | 44 | 5/5 (100%) | 3/5 (60%) |
+
+These are **small, selected eligible subsets**. The 100% figures are not generalizable validation of forecast reliability, particularly when bounds may be very broad and 44 of 49 Desharnais projects receive no finite interval at all. This is a concrete limitation that model developers must not hide behind nominal target coverage. The detailed original predictions, bounds and empirical widths are retained in the GitHub Actions source-verified JSON artifacts.
+
+An independently reviewed future release must improve **both** finite-interval applicability and interval width/coverage on untouched modern accepted projects, not merely declare success because a handful of broad historical intervals cover their outcomes.
