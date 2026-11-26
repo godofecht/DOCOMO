@@ -9,6 +9,7 @@ from typing import Sequence
 
 from .project_benchmarks import evaluate_legacy_corpus
 from .project_corpus import load_project_corpus
+from .interval_backtest import audit_all_forward_intervals
 from .forward_years import evaluate_all_forward
 from .scrutiny import open_json, scrutinize_amendment
 
@@ -27,10 +28,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         corpus = load_project_corpus(args.dataset_dir, offline=args.offline)
         benchmark = evaluate_legacy_corpus(corpus)
+        forward = evaluate_all_forward(corpus)
         report = {
             "source_data": {key:value for key,value in corpus.items() if key != "records"},
             "evaluations": benchmark,
-            "strict_forward_year_validation": evaluate_all_forward(corpus),
+            "strict_forward_year_validation": forward,
+            "strict_prior_year_interval_audit": audit_all_forward_intervals(forward),
             "calibration_status": "historical_real_effort_retrospective_not_ai_native",
         }
         review = scrutinize_amendment(open_json(args.proposal), report, open_json(args.registry))
