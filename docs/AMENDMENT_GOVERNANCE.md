@@ -28,7 +28,7 @@ An evaluator cannot transfer METR's treatment ratio into historical person-month
 
 ## Automated amendment example
 
-The versioned example `catalog/driver_amendment.json` asks whether historical complexity and cost drivers improve human-effort estimation beyond size alone **across all four real completed-project corpora**. The machine gate requires a declared relative log-RMSE gain in at least three source domains without a serious regression in any source. That threshold is explicitly a *research screen*, not a statistical significance proof or release certificate.
+The versioned example `catalog/driver_amendment.json` asks whether historical complexity and cost drivers improve human-effort estimation beyond size alone **across its originally registered four real completed-project corpora**. The machine gate requires a declared relative log-RMSE gain in at least three source domains without a serious regression in any source. That threshold is explicitly a *research screen*, not a statistical significance proof or release certificate.
 
 ```sh
 docomo-projects --output real-project-results.json --records-output real-project-cases.json
@@ -41,7 +41,9 @@ A failure to improve is a useful result, not evidence that DOCOMO should quietly
 
 ## Invariants enforced today
 
-An amendment cannot cherry-pick fewer than all four historical cost domains in the initial screening family. It must declare exact cost-target type, champion, challenger, frozen decision criteria and data feature timing. Sources must be in the evidence registry with the same unit and expected sample count. The reviewer cannot claim audited planning-time features from sources that do not publish such timestamps. No current retrospective evidence qualifies an automatic AI-native project-cost release.
+The frozen v1.0 amendment is still tested against its originally preregistered four historical cost domains. A separately versioned v1.1 proposal now registers all six source corpora, including Kitchenham and Maxwell. Amendments cannot remove a registered source post hoc. It must declare exact cost-target type, champion, challenger, frozen decision criteria and data feature timing. Sources must be in the evidence registry with the same unit and expected sample count. The reviewer cannot claim audited planning-time features from sources that do not publish such timestamps. No current retrospective evidence qualifies an automatic AI-native project-cost release.
+
+The **recorded Kitchenham first estimate** provides a genuine historical human estimation baseline: models that fail against it should not claim to replace human expert judgement merely by beating a size-only statistical comparator.
 
 CI reruns all actual-source data acquisition and benchmark calculations for each relevant code change, uploads normalized per-project observations and numerical reports, and runs the amendment challenge with the negative outcomes present. All data files have immutable commit/blob references and are re-downloaded only when verified unchanged.
 
@@ -60,3 +62,7 @@ Issue #9 tracks acquiring independently accepted AI-native projects. Issue #17 t
 Declare a precise use domain (e.g. a class of AI-assisted repository enhancements with independent acceptance), externally register the sampling and evaluation policy, collect complete labor/machine/verification costs with failures, evaluate on untouched projects from independent repositories, and show calibrated predictive coverage and improvement over *correctly matched* historic COCOMO II, size-only and a scalar AI treatment baseline. Run ablations separating specification grounding, coding, verification, orchestration, integration and rework.
 
 The result must report both what the model predicted correctly **and where it failed**. Calibrated status is bounded by a clearly stated task population, evaluator version and time horizon, and can be revoked when monitoring detects distribution shift. DOCOMO 1.0 is not an eternal law; it is a model allowed to be wrong in ways that can be measured.
+
+## Recorded evidence against model promotion (26 November 2026)
+
+The new 1.1 six-source amendment fails its declared 4-of-6, minimum-2%-improvement test; only three datasets meet the threshold. Kitchenham's real recorded human first estimates achieve log-RMSE 0.35838, beating the fitted size-and-observed-drivers model at 0.66960. This is a counterexample to claims that the statistical challenger has replaced human expert judgement. The historical 1.0 four-source amendment and its original decision rule remain unchanged, and no AI-native cost model is promoted.

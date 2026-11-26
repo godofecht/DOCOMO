@@ -77,7 +77,7 @@ The `docomo ledger` command reconciles each of seven human-effort stages against
 
 ## Real evaluated projects and adversarial model amendments
 
-`docomo-projects` fetches four immutable, checksum-verified original datasets and exports **736 actual completed-project effort records** (63 COCOMO81, 93 NASA93, 499 China and 81 Desharnais), retaining separate units and warning about possible repeated projects across sources. It runs leave-one-completion-year-out validation where a year exists and clearly labelled retrospective ID-group folds otherwise. [Source and validation rules](docs/REAL_PROJECTS.md).
+`docomo-projects` fetches four immutable, checksum-verified original datasets and exports **943 published completed-project observations** (63 COCOMO81, 93 NASA93, 499 China, 81 Desharnais, 145 Kitchenham and 62 Maxwell), retaining separate units and warning about possible repeated projects across sources. It runs leave-one-completion-year-out validation where a year exists and clearly labelled retrospective ID-group folds otherwise. [Source and validation rules](docs/REAL_PROJECTS.md).
 
 `docomo-scrutiny` recomputes all those historical benchmarks and challenges a versioned amendment proposal, publishing **negative results and regressions** as first-class evidence. Historic improvements cannot automatically promote a model for AI-native project cost estimation. The [evidence registry](catalog/evidence_registry.json) also distinguishes real developer-time trials, industrial actual-hours story estimates awaiting original-file ingestion, and functional-code acceptance suites such as SWE-bench Verified from actual total project effort. [Evolution protocol](docs/AMENDMENT_GOVERNANCE.md).
 
@@ -109,6 +109,12 @@ Once an independent evaluator runs the official SWE-bench harness, `docomo-score
 ## No future-project leakage in historical backtests
 
 `docomo-projects` and `docomo-scrutiny` now run an additional **strict earlier-to-later** challenge on the real NASA93 and Desharnais year-labelled projects. Each year's effort models are fitted *only* on earlier completed years; records from early years without enough predecessors are explicitly excluded rather than using later outcomes to fit a model. The scrutiny report publishes regression failures and a distinct `strict_forward_year_screen` gate. Historical source features may still be retrospective, and these tests are not certification of AI-native accepted-project cost. See [docs/FORWARD_VALIDATION.md](docs/FORWARD_VALIDATION.md).
+
+## Expanded real-world historical projects and original human estimates
+
+Two more immutable original project datasets now extend DOCOMO to **943 source observations**: **145 Kitchenham** projects with measured effort and independently recorded historical first human estimates, and **62 Maxwell** projects with measured person-hours and function-point sizes. The original file includes 62 Maxwell rows; DOCOMO does not invent the 63rd sometimes claimed in secondary literature. Actual effort is not confused with a human estimate.
+
+The old four-domain model amendment stays unchanged. `catalog/extended_driver_amendment.json` defines a separately versioned **six-domain** challenge and publishes both positive and negative results. Run `docomo-scrutiny --proposal catalog/extended_driver_amendment.json` for the expanded evidence. The new six-domain historical amendment **fails** its 4-of-6 screen. Kitchenham's original recorded human first estimates achieve **0.358 log-RMSE**, substantially better than the fitted observed-driver model (**0.670**). Both negative results are preserved. No historic result authorizes AI-native project-cost deployment.
 
 ## Scope
 

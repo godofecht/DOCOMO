@@ -83,6 +83,53 @@
       ]
     },
     {
+      "id": "kitchenham",
+      "unit_of_analysis": "completed_project",
+      "observed": 145,
+      "label": "person_hours",
+      "verification": "published_actual_effort_and_first_estimate",
+      "data_status": "source_pinned_ingested",
+      "dataset": "Derek-Jones/Software-estimation-datasets",
+      "provenance": "git_blob_sha1_verified",
+      "original_commit": "e3fbd4faa2a5aec94b06535369664c3ebbcbac39",
+      "original_blob": "3dfa1089cc4ecba24089f1b788dea98668f22a04",
+      "independent_acceptance": false,
+      "measured_ai_use": false,
+      "eligible": [
+        "historical_cost_backtest",
+        "observed_human_first_estimate_baseline"
+      ],
+      "blocked": [
+        "ai_native_project_cost",
+        "modern_causal_ai",
+        "assume_scope_available_at_planning"
+      ],
+      "note": "145 real outsourcing projects, historical human first estimates and person-hours. Ten missing project-type values are recorded as missing, not imputed."
+    },
+    {
+      "id": "maxwell",
+      "unit_of_analysis": "completed_project",
+      "observed": 62,
+      "label": "person_hours",
+      "verification": "published_actual_effort",
+      "data_status": "source_pinned_ingested",
+      "dataset": "Derek-Jones/Software-estimation-datasets",
+      "provenance": "git_blob_sha1_verified",
+      "original_commit": "e3fbd4faa2a5aec94b06535369664c3ebbcbac39",
+      "original_blob": "429f136d7a177dcf3bc72943579ae47e50af71d8",
+      "independent_acceptance": false,
+      "measured_ai_use": false,
+      "eligible": [
+        "historical_cost_backtest"
+      ],
+      "blocked": [
+        "ai_native_project_cost",
+        "modern_causal_ai",
+        "assume_63_records"
+      ],
+      "note": "62 projects in immutable original file. Other reports mention 63; actual observed source row count governs."
+    },
+    {
       "id": "metr_early",
       "unit_of_analysis": "randomized_developer_task",
       "observed": 246,
@@ -222,5 +269,5 @@
     "no_model_upgrade_without_untouched_cohort": true,
     "no_hindsight_features_as_planning_predictors": true
   },
-  "counting_note": "The four historical sources contain 736 project records, not a proven set of 736 independent non-overlapping projects; task and issue counts are separate units of analysis."
+  "counting_note": "Six historical sources contain 943 published completed-project observations, not a proven set of 943 independent non-overlapping projects. Other AI task and repair issue counts remain separate units."
 }

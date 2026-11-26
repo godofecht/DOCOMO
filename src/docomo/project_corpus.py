@@ -8,14 +8,15 @@ from __future__ import annotations
 
 import csv
 import math
+import re
 from pathlib import Path
 from typing import Any
 
 from .calibration import DRIVERS, read_cocomo81
 from .datasets import SOURCES, fetch_dataset
 
-PROJECT_SOURCES = ("cocomo81", "nasa93", "china", "desharnais")
-EXPECTED_ROWS = {"cocomo81": 63, "nasa93": 93, "china": 499, "desharnais": 81}
+PROJECT_SOURCES = ("cocomo81", "nasa93", "china", "desharnais", "kitchenham", "maxwell")
+EXPECTED_ROWS = {"cocomo81": 63, "nasa93": 93, "china": 499, "desharnais": 81, "kitchenham": 145, "maxwell": 62}
 RATING_ORDER = ("vl", "l", "n", "h", "vh", "xh")
 NASA_DRIVERS = tuple(DRIVERS)
 
@@ -172,6 +173,77 @@ def read_historical_projects(name: str, path: Path) -> list[dict]:
                 features, f"year:{year}", {"completion_year_code": year,
                                            "fold_policy": "leave_one_completion_year_out",
                                            "project_length_excluded": True},
+            ))
+    elif name == "kitchenham":
+        raw = _arff(path)
+        fields = {"project", "client.code", "project.type", "actual.start.date",
+                  "actual.effort", "adjusted.function.points", "first.estimate",
+                  "first.estimate.method"}
+        if any(not fields.issubset(row) for row in raw):
+            raise ValueError("Kitchenham missing source effort, historical human estimate or adjusted function points")
+        kinds = ("A", "C", "D", "P", "Pr", "U")
+        estimate_methods = ("A", "C", "CAE", "D", "EO", "W")
+        for row in raw:
+            identity = int(row["project"])
+            client = int(row["client.code"])
+            kind = row["project.type"]
+            method = row["first.estimate.method"]
+            if client not in range(1, 7) or kind not in (*kinds, "?") or method not in estimate_methods:
+                raise ValueError("Kitchenham unknown client/type/estimate method")
+            started = row["actual.start.date"]
+            if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", started):
+                raise ValueError("Kitchenham invalid start date")
+            from datetime import date
+            try:
+                date.fromisoformat(started)
+            except ValueError as error:
+                raise ValueError("Kitchenham impossible start date") from error
+            first = _positive(row["first.estimate"], "first.estimate")
+            features = {
+                **{f"client_{i}": float(client == i) for i in range(2, 7)},
+                **{f"type_{t}": float(kind == t) for t in kinds},
+                "type_missing": float(kind == "?"),
+            }
+            rows.append(_record(
+                name, identity, _positive(row["actual.effort"], "actual.effort"),
+                "person_hours", _positive(row["adjusted.function.points"], "adjusted.function.points"),
+                "adjusted_function_points",
+                features, f"id_mod5:{identity % 5}",
+                {"original_first_estimate_person_hours": first,
+                 "original_first_estimate_method": method,
+                 "source_start_date": started, "project_type_missing": kind == "?",
+                 "fold_policy": "id_mod5_not_prospective",
+                 "historical_first_estimate_is_not_ai_generated": True},
+            ))
+    elif name == "maxwell":
+        raw = _arff(path)
+        features_required = {"syear", "app", "har", "dba", "ifc", "source",
+                             "telonuse", "nlan", "size", "effort",
+                             *(f"t{i:02d}" for i in range(1, 16))}
+        if any(not features_required.issubset(row) for row in raw):
+            raise ValueError("Maxwell missing actual cost, size or source predictor columns")
+        for index, row in enumerate(raw, start=1):
+            # Only a fixed compact set of source descriptors is used:
+            # fitting all 15 technology items independently would violate
+            # the preregistered minimum train-to-feature ratio for n=62.
+            tech = [_nonnegative(row[f"t{i:02d}"], f"t{i:02d}")
+                    for i in range(1, 16)]
+            features = {
+                field: _nonnegative(row[field],field)
+                for field in ("app", "har", "dba", "ifc", "source", "telonuse", "nlan")
+            }
+            features["technology_score_mean"] = math.fsum(tech)/15
+            start_year_code = int(row["syear"])
+            if not 80 <= start_year_code <= 99:
+                raise ValueError("Maxwell start-year code out of expected range")
+            rows.append(_record(
+                name, index, _positive(row["effort"], "effort"),
+                "person_hours", _positive(row["size"], "size"),
+                "function_points", features, f"id_mod5:{index % 5}",
+                {"source_start_year_code": start_year_code,
+                 "source_record_has_no_project_id": True,
+                 "fold_policy": "source_row_index_mod5_not_prospective",
+                 "source_reported_project_count": 62},
             ))
     if len(rows) != EXPECTED_ROWS[name]:
         raise ValueError(f"{name} expected {EXPECTED_ROWS[name]} records, got {len(rows)}")

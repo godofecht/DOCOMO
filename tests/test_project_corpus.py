@@ -9,13 +9,17 @@ from docomo.datasets import SOURCES
 
 
 class RealProjectCorpusTests(unittest.TestCase):
-    def test_four_real_sources_are_git_blob_pinned(self):
-        self.assertEqual(set(PROJECT_SOURCES), {"cocomo81", "nasa93", "china", "desharnais"})
+    def test_six_real_sources_are_git_blob_pinned(self):
+        self.assertEqual(set(PROJECT_SOURCES), {"cocomo81", "nasa93", "china", "desharnais", "kitchenham", "maxwell"})
         for name in PROJECT_SOURCES:
             self.assertEqual(len(SOURCES[name]["commit"]), 40)
             self.assertEqual(len(SOURCES[name]["git_blob_sha1"]), 40)
         self.assertEqual(SOURCES["nasa93"]["git_blob_sha1"],
                          "cf677e462edbe7623a5707c341c22569816aa566")
+        self.assertEqual(SOURCES["kitchenham"]["git_blob_sha1"],
+                         "3dfa1089cc4ecba24089f1b788dea98668f22a04")
+        self.assertEqual(SOURCES["maxwell"]["git_blob_sha1"],
+                         "429f136d7a177dcf3bc72943579ae47e50af71d8")
 
     def test_arff_parser_fails_closed_on_mismatched_column_count(self):
         with tempfile.TemporaryDirectory() as temporary:
