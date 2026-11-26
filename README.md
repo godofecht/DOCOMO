@@ -116,6 +116,10 @@ Two more immutable original project datasets now extend DOCOMO to **943 source o
 
 The old four-domain model amendment stays unchanged. `catalog/extended_driver_amendment.json` defines a separately versioned **six-domain** challenge and publishes both positive and negative results. Run `docomo-scrutiny --proposal catalog/extended_driver_amendment.json` for the expanded evidence. The new six-domain historical amendment **fails** its 4-of-6 screen. Kitchenham's original recorded human first estimates achieve **0.358 log-RMSE**, substantially better than the fitted observed-driver model (**0.670**). Both negative results are preserved. No historic result authorizes AI-native project-cost deployment.
 
+## Strict-prior-year effort intervals
+
+DOCOMO now also audits **uncertainty**, not only point-prediction error. The fixed 80%-target retrospective interval test calibrates each year's bounds exclusively from already observed errors of forecasts made for **earlier completed years**, never using same-year or later labels. It refuses finite intervals until at least two earlier evaluated year groups and twelve prior out-of-time residuals are available. Every real NASA93 and Desharnais later-year project receives either a reproducible empirical interval/coverage record or an explicit insufficiency result. This does not claim distribution-free coverage over dependent historical projects or modern AI-native projects. See [docs/PREQUENTIAL.md](docs/PREQUENTIAL.md).
+
 ## Scope
 
 Phase 0 implements decision-theoretic grounding, observational accepted-outcome cost, and partially calibrated, strictly domain-scoped historical and AI-task models. It does not automatically interpret requirements, verify a programme, estimate unknown future costs, derive probabilities from prose, or prove that an acceptance suite covers the right specification.
