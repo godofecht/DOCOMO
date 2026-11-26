@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import urllib.error
 import urllib.request
@@ -27,10 +28,16 @@ MAX_METADATA = 1_000_000
 def _read_public_json(url: str) -> dict | list:
     if url not in URLS:
         raise ValueError("unregistered Mendeley Data public metadata URL")
-    request = urllib.request.Request(url,headers={
-        "Accept":"application/json,application/vnd.mendeley-public-dataset.1+json",
-        "User-Agent":"DOCOMO-Research-Source-Discovery/1.0",
-    })
+    headers = {
+        "Accept": "application/json,application/vnd.mendeley-public-dataset.1+json",
+        "User-Agent": "DOCOMO-Research-Source-Discovery/1.0",
+    }
+    token = os.environ.get("MENDELEY_ACCESS_TOKEN", "").strip()
+    if token:
+        if "\n" in token or "\r" in token:
+            raise ValueError("invalid Mendeley access token")
+        headers["Authorization"] = "Bearer " + token
+    request = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(request,timeout=15) as response:
         if response.status != 200:
             raise ValueError(f"metadata endpoint returned HTTP {response.status}")
