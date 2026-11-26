@@ -201,12 +201,45 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
                 and not r["regression_exceeds_budget"] for r in forward_results) and
             any(r["meets_minimum_improvement"] for r in forward_results)
         )
+    interval_report = report.get("strict_prior_year_interval_audit")
+    interval_diagnostics = []
+    if interval_report is not None:
+        if (not isinstance(interval_report, Mapping) or
+                interval_report.get("status") != "prequential_legacy_intervals_not_ai_native_prediction_coverage"):
+            raise ValueError("invalid historical strict-prior-year interval audit")
+        sources = interval_report.get("domains")
+        if not isinstance(sources, Mapping) or set(sources) != {"nasa93", "desharnais"}:
+            raise ValueError("both chronological interval sources must be present")
+        for name in ("nasa93", "desharnais"):
+            evidence = sources[name]
+            total = evidence.get("forward_test_project_count")
+            finite = evidence.get("projects_with_all_finite_intervals")
+            missing = evidence.get("projects_without_finite_intervals")
+            if (type(total) is not int or type(finite) is not int or
+                    type(missing) is not int or finite + missing != total or
+                    total <= 0 or finite < 0 or missing < 0):
+                raise ValueError("invalid strict prior-year interval case coverage")
+            summary = evidence.get("model_results")
+            if not isinstance(summary, Mapping) or p["challenger"] not in summary:
+                raise ValueError("missing interval diagnostics for challenger")
+            model = summary[p["challenger"]]
+            interval_diagnostics.append({
+                "dataset": name,
+                "nominal_coverage": interval_report["target_coverage"],
+                "finite_intervals": finite,
+                "without_finite_interval": missing,
+                "challenger_model": p["challenger"],
+                "empirical_coverage_if_available": model["empirical_coverage"],
+                "mean_log_interval_width_if_available": model["mean_log_interval_width"],
+                "prospective_coverage_certified": False,
+            })
     feature_verified = p["proposed_feature_timing"] == "planning_time_independently_verified"
     # We do not have original planning timestamps for the historical predictors:
     # a proposal claim alone cannot make them independently verified.
     release_gate = {
         "cross_source_legacy_benchmark_screen": performance,
         "strict_forward_year_screen": temporal_success,
+        "historical_strict_prior_year_coverage_certified": False,
         "predictors_proven_available_at_planning": False,
         "prospective_unseen_project_holdout_passed": False,
         "independent_acceptance_and_cost_labels_audited": False,
@@ -230,6 +263,7 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
         "historical_performance_screen_passed": performance,
         "strict_forward_year_screen_passed": temporal_success,
         "strict_forward_year_challenges": forward_results,
+        "strict_prior_year_interval_diagnostics": interval_diagnostics,
         "release_gates": release_gate,
         "release_status": "research_candidate_not_eligible_for_ai_native_release",
         "requested_model_upgrade_automatically_authorized": False,
