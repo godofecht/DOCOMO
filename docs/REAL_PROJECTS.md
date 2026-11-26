@@ -66,3 +66,18 @@ The industrial study [DOI 10.17632/ytmwsf2997.2](https://data.mendeley.com/datas
 [SWE-bench Pro](https://labs.scale.com/leaderboard/swe_bench_pro_public_v2) reports 1,865 complex tasks spanning 41 professional repositories but includes public and restricted evaluation subsets. DOCOMO does not misrepresent all tasks as publicly reproducible or as person-month cost evidence.
 
 The correct next step is to attach independently observed **time/cost** and **acceptance oracles** to future eligible project cohorts, not synthesize those labels from commit dates or patch sizes.
+
+## Added-source empirical results (26 November 2026)
+
+The source-pinned CI evaluation of the newly admitted historical projects yielded the following **retrospective** log-RMSE values. No new estimate or project outcome was invented.
+
+| Historical source | Actual projects | Size-only model | Observed-driver model | Relative model gain |
+| --- | ---: | ---: | ---: | ---: |
+| Kitchenham | 145 | 0.682591 | 0.669604 | 1.90% |
+| Maxwell | 62 | 0.616150 | 0.615657 | 0.08% |
+
+On Kitchenham's original 145 projects, the **recorded historical human first estimates** achieve log-RMSE **0.358382**, versus **0.669604** for the fitted observed-driver regression and **0.682591** for size-only. The fitted driver model therefore has **86.84% greater log-RMSE than the recorded human first estimate**. Beating size-only is not evidence of beating an actual human professional baseline.
+
+The original frozen v1.0 amendment passes its 3-of-4 historical source screen, but the separately named v1.1 extension requires at least **2%** log-RMSE reduction in at least **4 of 6** sources. Only COCOMO81, NASA93 and Desharnais satisfy this. China (1.29%), Kitchenham (1.90%) and Maxwell (0.08%) do not. **The six-source amendment fails its declared historical screen.** Its earlier-year test does not override the failed screen.
+
+These repeatedly examined historical data provide an exploratory robustness check, not prospective confirmation. The 1.1 decision rule was formulated after the two additional datasets were discovered, and any favourable result would still require untouched independent projects.
