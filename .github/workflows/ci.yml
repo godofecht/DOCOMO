@@ -145,6 +145,21 @@ jobs:
         run: python -m pip install -e '.[repair]'
       - run: docomo-score-repairs --help
       - run: docomo-industrial --help
+      - name: Probe Mendeley Data v2 public file metadata without inferring original workbook contents
+        run: |
+          python scripts/discover_mendeley_v2.py --output mendeley-v2-public-metadata.json
+          python - <<'PY'
+          import json
+          record=json.load(open('mendeley-v2-public-metadata.json'))
+          assert record['dataset']=='10.17632/ytmwsf2997.2'
+          assert record['actual_xlsx_bytes_retrieved'] is False
+          assert record['source_digest_independently_pinned'] is False
+          print('Original Mendeley source status:',record['status'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docomo-mendeley-original-source-discovery
+          path: mendeley-v2-public-metadata.json
       - name: Confirm Mendeley v2 parser rejects missing original source and keeps fixtures synthetic
         run: |
           python -m unittest discover -s tests -p 'test_industrial_stories.py' -v
