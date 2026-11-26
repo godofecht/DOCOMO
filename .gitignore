@@ -13,3 +13,7 @@ local-repair-prompts.jsonl
 local-repair-metadata.json
 
 scored-repair-run.json
+
+industrial-v2-original.xlsx
+industrial-evaluation.json
+industrial-normalized-records.json
