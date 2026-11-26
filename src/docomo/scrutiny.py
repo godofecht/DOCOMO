@@ -143,6 +143,21 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
             "exceeds_regression_budget": significant_regression,
             "negative_result": improvement <= 0,
         })
+    kitchenham = data["kitchenham"]["metrics"]
+    human_log_rmse = float(kitchenham["original_recorded_human_first_estimate"]["log_rmse"])
+    model_log_rmse = float(kitchenham["size_and_observed_drivers"]["log_rmse"])
+    if not all(math.isfinite(v) and v > 0 for v in (human_log_rmse, model_log_rmse)):
+        raise ValueError("Kitchenham historical human baseline requires positive finite error")
+    human_reference = {
+        "source_id": "kitchenham",
+        "projects_with_original_first_human_estimate": EXPECTED_ROWS["kitchenham"],
+        "comparison_is_historical_not_prospective": True,
+        "recorded_human_first_estimate_log_rmse": human_log_rmse,
+        "model_size_and_observed_drivers_log_rmse": model_log_rmse,
+        "model_relative_log_rmse_change_vs_human": model_log_rmse/human_log_rmse-1,
+        "model_beats_recorded_first_human_estimate": model_log_rmse < human_log_rmse,
+        "model_eligible_to_replace_expert_based_on_this_evidence": False,
+    }
     performance = all_promising >= p["minimum_improving_domains"] and not fails
     temporal = report.get("strict_forward_year_validation")
     forward_results = []
@@ -210,6 +225,7 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
         "datasets_scrutinized": outcomes,
         "additional_registered_domains_not_in_frozen_proposal": [name for name in PROJECT_SOURCES if name not in p["domains"]],
         "positive_domains": all_promising,
+        "historical_recorded_human_comparator": human_reference,
         "substantial_regressions": fails,
         "historical_performance_screen_passed": performance,
         "strict_forward_year_screen_passed": temporal_success,
@@ -236,6 +252,7 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
         "evidence_integrity": source_check,
         "next_scrutiny": [
             "Independently audit whether every candidate feature was available before effort was incurred.",
+            "Check whether the statistically fitted model actually beats Kitchenham's original recorded human first estimates before claiming a human-expert replacement.",
             "Replicate a preregistered release decision on external unseen modern AI-native projects, across repositories and time.",
             "Retain all rejected and contradicted hypotheses in the public versioned docket; do not erase negative datasets.",
             "The frozen 1.0 proposal evaluates only its originally four named domains; revision 1.1 is a separately preregistered six-domain challenge.",
