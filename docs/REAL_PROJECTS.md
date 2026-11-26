@@ -10,10 +10,12 @@ DOCOMO collects **published actual project effort records**, not estimated or mo
 | NASA93 | 93 | Person-months | Equivalent physical KSLOC | Leave-one-completion-year-out |
 | China | 499 | Person-hours | Adjusted function points (AFP) | Historical ID-modulo-five holdouts |
 | Desharnais | 81 | Person-hours | Adjusted function points | Leave-one-completion-year-out |
+| Kitchenham | 145 | Person-hours | Adjusted function points | Retrospective ID-group holdouts; recorded human first estimate |
+| Maxwell | 62 | Person-hours | Function points | Retrospective source-row-index-group holdouts |
 
-All four are sourced from [Derek Jones's collected public software estimation datasets](https://github.com/Derek-Jones/Software-estimation-datasets/tree/e3fbd4faa2a5aec94b06535369664c3ebbcbac39), fixed at commit `e3fbd4faa2a5aec94b06535369664c3ebbcbac39`. COCOMO81, NASA93, China and Desharnais have pinned source blob digests in `src/docomo/datasets.py`.
+All six are sourced from [Derek Jones's collected public software estimation datasets](https://github.com/Derek-Jones/Software-estimation-datasets/tree/e3fbd4faa2a5aec94b06535369664c3ebbcbac39), fixed at commit `e3fbd4faa2a5aec94b06535369664c3ebbcbac39`. COCOMO81, NASA93, China, Desharnais, Kitchenham and Maxwell have pinned source blob digests in `src/docomo/datasets.py`.
 
-Their total is **736 historical project observations**, NOT a proven unique set of 736 independent projects. COCOMO81 and NASA93 have overlapping origins and can contain overlapping projects; their record IDs are dataset-local. Never pool, deduplicate heuristically, or sum their samples to inflate a generalisation claim.
+Their total is **943 historical project observations**, NOT a proven unique set of 736 independent projects. COCOMO81 and NASA93 have overlapping origins and can contain overlapping projects; their record IDs are dataset-local. Never pool, deduplicate heuristically, or sum their samples to inflate a generalisation claim.
 
 All observations represent historical completed effort, not validated modern acceptance, machine expenditure or AI-assisted development. The dataset descriptions refer to real original project logs and secondary compilations, but DOCOMO has **not** independently audited each original project timekeeping record. Historical size/complexity variables may describe the final product, not what managers knew at the start of work. It is therefore invalid to claim they are ex-ante forecasting features without a separate timeline audit.
 
@@ -26,6 +28,10 @@ For China, the label is `Effort`, representing actual person-hours. The secondar
 For Desharnais, the label is `Effort` and size is `PointsAjust`. `Length` and completion year are not used as predictors; completion year is used **only** to hold out a historical cohort. Experience fields coded `-1` are handled using explicit missingness flags instead of silently interpreting `-1` as negative years.
 
 For NASA93, the label is `act_effort`, size is `equivphyskloc`, and the fifteen ordinal COCOMO-I effort ratings plus development mode are candidate explanatory features. The original mode and year fields are not confused with modern COCOMO II scale factors.
+
+For Kitchenham, the original source reports first human effort estimates and actual later person-hours for 145 project rows. Ten original project-type values are missing and get explicit missingness indicators instead of fabricated types. The human first estimate is a separately evaluated **human baseline**, not a prediction made by an AI coding agent. All 145 source project IDs are retained.
+
+For Maxwell, the original immutable ARFF contains **62 actual project rows**, even though secondary papers sometimes report 63. The 15 ordinal technology factors are summarized by a fixed mean rather than fitting 15 uncalibrated coefficients on a 62-row training set. The source row index is used only as the within-file identifier; it does not imply a stable organizational project ID or a time-based holdout.
 
 For COCOMO81, the known effort adjustment factor and development mode provide the additional explanatory drivers. Published source rows, no generated numbers, determine the dependent variables.
 
@@ -47,7 +53,7 @@ docomo-projects --output real-project-results.json --records-output real-project
 docomo-projects --dataset-dir .docomo-cache --offline --output reproduced.json
 ```
 
-The command refuses missing/corrupt source files in offline mode. CI downloads the exact pinned originals, evaluates all four domains and uploads an artifact containing both **all real observation rows** and their source-specific metrics.
+The command refuses missing/corrupt source files in offline mode. CI downloads the exact pinned originals, evaluates all six domains and uploads an artifact containing both **all real observation rows** and their source-specific metrics.
 
 ## Other actually evaluated engineering work
 
