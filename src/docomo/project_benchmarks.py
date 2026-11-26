@@ -79,6 +79,8 @@ def evaluate_legacy_domain(name: str, projects: list[dict]) -> dict:
         "size_only": [],
         "size_and_observed_drivers": [],
     }
+    if name == "kitchenham":
+        outputs["original_recorded_human_first_estimate"] = []
     fold_details = []
     for group, test in sorted(groups.items()):
         train = [r for g,items in groups.items() if g != group for r in items]
@@ -95,6 +97,10 @@ def evaluate_legacy_domain(name: str, projects: list[dict]) -> dict:
         })
         for r in test:
             outputs["training_median"].append((r["effort"], median))
+            if name == "kitchenham":
+                outputs["original_recorded_human_first_estimate"].append(
+                    (r["effort"],r["descriptors"]["original_first_estimate_person_hours"])
+                )
             for model,fit in fits.items():
                 outputs[model].append((r["effort"], _predict(r,fit)))
 
@@ -111,6 +117,8 @@ def evaluate_legacy_domain(name: str, projects: list[dict]) -> dict:
         "completion_years_or_id_groups": len(groups),
         "folds": fold_details,
         "metrics": measured,
+        "original_human_first_estimate_available": name == "kitchenham",
+        "original_human_first_estimate_is_not_ai": name == "kitchenham",
         "relative_log_rmse_change_vs_size_only": changes,
         "candidate_amendment": {
             "hypothesis": "Pre-existing cost/complexity descriptors reduce held-out log-RMSE beyond a size-only baseline",
