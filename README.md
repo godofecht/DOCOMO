@@ -114,7 +114,7 @@ Once an independent evaluator runs the official SWE-bench harness, `docomo-score
 
 Two more immutable original project datasets now extend DOCOMO to **943 source observations**: **145 Kitchenham** projects with measured effort and independently recorded historical first human estimates, and **62 Maxwell** projects with measured person-hours and function-point sizes. The original file includes 62 Maxwell rows; DOCOMO does not invent the 63rd sometimes claimed in secondary literature. Actual effort is not confused with a human estimate.
 
-The old four-domain model amendment stays unchanged. `catalog/extended_driver_amendment.json` defines a separately versioned **six-domain** challenge and publishes both positive and negative results. Run `docomo-scrutiny --proposal catalog/extended_driver_amendment.json` for the expanded evidence. None of these historical improvements authorize AI-native project-cost deployment.
+The old four-domain model amendment stays unchanged. `catalog/extended_driver_amendment.json` defines a separately versioned **six-domain** challenge and publishes both positive and negative results. Run `docomo-scrutiny --proposal catalog/extended_driver_amendment.json` for the expanded evidence. The new six-domain historical amendment **fails** its 4-of-6 screen. Kitchenham's original recorded human first estimates achieve **0.358 log-RMSE**, substantially better than the fitted observed-driver model (**0.670**). Both negative results are preserved. No historic result authorizes AI-native project-cost deployment.
 
 ## Scope
 
