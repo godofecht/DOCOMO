@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "dataset_doi": "10.17632/ytmwsf2997.2",
+  "source_version": 2,
+  "source_sha256": "REPLACE_WITH_SHA256_OF_EXACT_ORIGINAL_VERSION_2_WORKBOOK",
+  "worksheet": "REPLACE_WITH_VISIBLE_WORKSHEET_NAME",
+  "header_row": 1,
+  "columns": {
+    "project_id": "REPLACE_WITH_PROJECT_ID_HEADER",
+    "story_id": "REPLACE_WITH_STORY_ID_HEADER",
+    "actual_person_hours": "REPLACE_WITH_OBSERVED_PERSON_HOURS_HEADER",
+    "human_expert": "REPLACE_WITH_EXPERT_ESTIMATE_HEADER",
+    "planning_poker": "REPLACE_WITH_PLANNING_POKER_HEADER",
+    "chatgpt": "REPLACE_WITH_CHATGPT_ESTIMATE_HEADER",
+    "deepseek": "REPLACE_WITH_DEEPSEEK_ESTIMATE_HEADER",
+    "copilot": "REPLACE_WITH_COPILOT_ESTIMATE_HEADER",
+    "gemini": "REPLACE_WITH_GEMINI_ESTIMATE_HEADER"
+  }
+}
