@@ -102,6 +102,10 @@ See [docs/REPAIR_CASES.md](docs/REPAIR_CASES.md) for the evaluation boundary.
 
 Once an independent evaluator runs the official SWE-bench harness, `docomo-score-repairs` can score its genuine `results.json` (schema version 2) against the pinned 500-case inventory. It refuses unknown or omitted instance IDs, overlap between pass/fail/error categories, inflated counts or a changed source revision. **All 500 cases remain in the denominator**, including evaluation failures and unsubmitted patches. Scores stay marked *run logs unverified* until an independent auditor checks the actual official Docker/test logs and sandbox policy. See [docs/REPAIR_SCORING.md](docs/REPAIR_SCORING.md).
 
+## Original industrial user-story effort, no invented workbook schema
+
+`docomo-industrial inspect original-v2.xlsx` reports the original workbook SHA256 and actual visible/hidden worksheet names. Once the official [Mendeley version 2 dataset](https://data.mendeley.com/datasets/ytmwsf2997/2) has been obtained, fill in the exact source headings, sheet and digest in `catalog/mendeley_v2_mapping.template.json` and run `docomo-industrial score` with that mapping. It insists on **ten original projects, over 100 complete stories, actual numerical person-hours and every original human/AI estimator**, rejecting missing labels, duplicate stories, formula-derived values and mismatched versions. The report gives per-project/pooled error and paired project-cluster bootstrap differences, never claims AI coding productivity. Until the original v2 workbook can be downloaded, this source remains **identified but not ingested** in the evidence registry. [Full specification](docs/INDUSTRIAL_STORIES.md).
+
 ## Scope
 
 Phase 0 implements decision-theoretic grounding, observational accepted-outcome cost, and partially calibrated, strictly domain-scoped historical and AI-task models. It does not automatically interpret requirements, verify a programme, estimate unknown future costs, derive probabilities from prose, or prove that an acceptance suite covers the right specification.
