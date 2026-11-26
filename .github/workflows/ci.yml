@@ -91,6 +91,20 @@ jobs:
           assert source['project_observations'] == 943
           assert len(source['datasets']) == 6
           assert report['calibration_status'] == 'historical_real_effort_retrospective_not_ai_native'
+          intervals = report['strict_prior_year_interval_audit']
+          assert intervals['future_unseen_project_coverage_certified'] is False
+          assert intervals['target_coverage'] == 0.8
+          for source, domain in intervals['domains'].items():
+              assert domain['forward_test_project_count'] > 0
+              assert (domain['projects_with_all_finite_intervals']+
+                      domain['projects_without_finite_intervals'] ==
+                      domain['forward_test_project_count'])
+              print('STRICT-PRIOR-INTERVAL',source,
+                    'finite:',domain['projects_with_all_finite_intervals'],
+                    'insufficient:',domain['projects_without_finite_intervals'])
+              for model, actual in domain['model_results'].items():
+                  assert actual['coverage_theorem_claimed'] is False
+                  print(source,model,'observed coverage:',actual['empirical_coverage'])
           forward = report['strict_forward_year_validation']
           assert set(forward['domains']) == {'nasa93', 'desharnais'}
           for name, years in forward['domains'].items():
