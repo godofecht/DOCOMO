@@ -95,7 +95,7 @@ def validate_evidence_registry(catalog: Mapping[str, Any], source_report: dict) 
         if row["project_observations"] != EXPECTED_ROWS[name]:
             raise ValueError(f"unexpected row count from {name}")
     if {r["source_id"] for r in datasets} != set(PROJECT_SOURCES):
-        raise ValueError("must benchmark all four historical sources with original labels")
+        raise ValueError("must benchmark all registered historical sources with original labels")
     return {"registered_sources": len(domains), "ingested_historical_sources": len(datasets),
             "historical_project_records": sum(r["project_observations"] for r in datasets)}
 
