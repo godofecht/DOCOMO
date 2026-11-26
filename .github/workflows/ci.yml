@@ -91,6 +91,18 @@ jobs:
           assert source['project_observations'] == 736
           assert len(source['datasets']) == 4
           assert report['calibration_status'] == 'historical_real_effort_retrospective_not_ai_native'
+          forward = report['strict_forward_year_validation']
+          assert set(forward['domains']) == {'nasa93', 'desharnais'}
+          for name, years in forward['domains'].items():
+              assert years['total_project_observations'] in (93, 81)
+              assert years['scored_future_year_projects'] > 0
+              assert (years['scored_future_year_projects'] + years['unscored_early_projects']
+                      == years['total_project_observations'])
+              print('STRICT-FORWARD', name,
+                    'test projects:',years['scored_future_year_projects'],
+                    'unscored early:',years['unscored_early_projects'],
+                    'size RMSE:',years['metrics']['size_only']['log_rmse'],
+                    'driver RMSE:',years['metrics']['size_and_observed_drivers']['log_rmse'])
           for name, domain in report['evaluations']['cohort_results'].items():
               assert domain['metrics']['size_only']['n'] == domain['n']
               assert domain['metrics']['size_and_observed_drivers']['n'] == domain['n']
@@ -109,6 +121,13 @@ jobs:
           assert not report['requested_model_upgrade_automatically_authorized']
           assert report['release_status'] == 'research_candidate_not_eligible_for_ai_native_release'
           assert len(report['datasets_scrutinized']) == 4
+          assert len(report['strict_forward_year_challenges']) == 2
+          assert 'strict_forward_year_screen' in report['release_gates']
+          print('Forward-year screen passed:', report['strict_forward_year_screen_passed'])
+          for check in report['strict_forward_year_challenges']:
+              print('Forward-year challenge:', check['dataset'],
+                    'relative log-RMSE gain:', check['relative_log_rmse_improvement'],
+                    'significant regression:', check['regression_exceeds_budget'])
           print('Candidate positive domains:', report['positive_domains'])
           print('Substantial regressions:', report['substantial_regressions'])
           for item in report['datasets_scrutinized']:
