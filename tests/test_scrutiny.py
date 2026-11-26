@@ -10,7 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG = json.loads((ROOT / "catalog" / "evidence_registry.json").read_text())
 PROPOSAL = json.loads((ROOT / "catalog" / "driver_amendment.json").read_text())
 UNITS = {"cocomo81": "person_months", "nasa93": "person_months",
-         "china": "person_hours", "desharnais": "person_hours"}
+         "china": "person_hours", "desharnais": "person_hours",
+         "kitchenham": "person_hours", "maxwell": "person_hours"}
 
 
 def toy_report(ratio_by_domain=None):
@@ -23,7 +24,7 @@ def toy_report(ratio_by_domain=None):
         datasets.append({"source_id":name,"project_observations":EXPECTED_ROWS[name],
                          "effort_unit":UNITS[name]})
         metrics = {"size_only":{"log_rmse":1.0},
-                   "size_and_observed_drivers":{"log_rmse":ratio_by_domain[name]},
+                   "size_and_observed_drivers":{"log_rmse":ratio_by_domain.get(name, .9)},
                    "training_median":{"log_rmse":1.5}}
         outcomes[name] = {"n":EXPECTED_ROWS[name], "metrics":metrics,
                           "unit":UNITS[name], "evaluation":"toy_group_holdout"}
@@ -39,7 +40,7 @@ class ScrutinyTests(unittest.TestCase):
     def test_every_project_domain_required_no_cherrypicking(self):
         altered = copy.deepcopy(PROPOSAL)
         altered["domains"] = ["china", "desharnais"]
-        with self.assertRaisesRegex(ValueError, "four historical"):
+        with self.assertRaisesRegex(ValueError, "all 4 predeclared"):
             validate_proposal(altered)
 
     def test_observed_improvement_cannot_crown_ai_native_model(self):
@@ -51,7 +52,8 @@ class ScrutinyTests(unittest.TestCase):
         self.assertEqual(reviewed["release_status"],
                          "research_candidate_not_eligible_for_ai_native_release")
         self.assertFalse(reviewed["release_gates"]["prospective_unseen_project_holdout_passed"])
-        self.assertEqual(reviewed["evidence_integrity"]["historical_project_records"], 736)
+        self.assertEqual(reviewed["evidence_integrity"]["historical_project_records"], 943)
+        self.assertEqual(reviewed["additional_registered_domains_not_in_frozen_proposal"], ["kitchenham","maxwell"])
 
     def test_negative_results_and_counterexamples_remain_visible(self):
         report = toy_report({"cocomo81":.9, "nasa93":.94,
@@ -137,6 +139,23 @@ class ScrutinyTests(unittest.TestCase):
         failed = scrutinize_amendment(PROPOSAL, report, CATALOG)
         self.assertFalse(failed["strict_forward_year_screen_passed"])
         self.assertTrue(failed["strict_forward_year_challenges"][0]["regression_exceeds_budget"])
+
+
+    def test_new_amendment_registers_all_six_sources_without_rewriting_v1(self):
+        new = json.loads((ROOT / "catalog" / "extended_driver_amendment.json").read_text())
+        self.assertEqual(PROPOSAL["schema_version"], "1.0")
+        self.assertEqual(len(PROPOSAL["domains"]), 4)
+        self.assertEqual(new["schema_version"], "1.1")
+        self.assertEqual(new["domains"], list(PROJECT_SOURCES))
+        report = toy_report()
+        trial = scrutinize_amendment(new, report, CATALOG)
+        self.assertEqual(len(trial["datasets_scrutinized"]), 6)
+        self.assertEqual(trial["additional_registered_domains_not_in_frozen_proposal"], [])
+        self.assertFalse(trial["requested_model_upgrade_automatically_authorized"])
+        altered = copy.deepcopy(new)
+        altered["domains"].remove("maxwell")
+        with self.assertRaisesRegex(ValueError,"all 6 predeclared"):
+            validate_proposal(altered)
 
     def test_rejects_unfrozen_amendment_changes(self):
         altered = copy.deepcopy(PROPOSAL)
