@@ -15,6 +15,8 @@ from typing import Any
 
 from .project_corpus import PROJECT_SOURCES, EXPECTED_ROWS
 
+FROZEN_V1_DOMAINS = ("cocomo81", "nasa93", "china", "desharnais")
+
 _ALLOWED = {"proposal_id", "schema_version", "hypothesis", "target",
             "champion", "challenger", "domains", "minimum_improvement_fraction",
             "maximum_allowed_regression_fraction", "minimum_improving_domains",
@@ -32,7 +34,7 @@ def _finite(value: Any, name: str, minimum: float, maximum: float) -> float:
 def validate_proposal(candidate: Mapping[str, Any]) -> dict:
     if not isinstance(candidate, Mapping) or set(candidate) != _ALLOWED:
         raise ValueError("amendment must declare every required field and no extras")
-    if candidate["schema_version"] != "1.0":
+    if candidate["schema_version"] not in ("1.0", "1.1"):
         raise ValueError("unsupported proposal schema")
     if not isinstance(candidate["proposal_id"], str) or not _ID.fullmatch(candidate["proposal_id"]):
         raise ValueError("proposal_id must be a stable, versioned slug")
@@ -42,8 +44,10 @@ def validate_proposal(candidate: Mapping[str, Any]) -> dict:
     if candidate["target"] != "historical_project_human_effort":
         raise ValueError("this scorer supports only historical project effort, not AI-native costs")
     domains = candidate["domains"]
-    if not isinstance(domains, list) or set(domains) != set(PROJECT_SOURCES) or len(domains) != len(PROJECT_SOURCES):
-        raise ValueError("all four historical effort domains are required; cherry-picking prohibited")
+    expected = (FROZEN_V1_DOMAINS if candidate["schema_version"] == "1.0"
+                else PROJECT_SOURCES)
+    if not isinstance(domains,list) or domains != list(expected):
+        raise ValueError(f"all {len(expected)} predeclared historical effort domains required in source order; no cherry-picking")
     if (candidate["champion"] not in _CANDIDATES or candidate["challenger"] not in _CANDIDATES
             or candidate["champion"] == candidate["challenger"]):
         raise ValueError("amendment must compare distinct supported estimator models")
@@ -55,11 +59,11 @@ def validate_proposal(candidate: Mapping[str, Any]) -> dict:
     max_regression = _finite(candidate["maximum_allowed_regression_fraction"],
                              "maximum_allowed_regression_fraction", 0, 1)
     count = candidate["minimum_improving_domains"]
-    if type(count) is not int or not 1 <= count <= 4:
-        raise ValueError("minimum_improving_domains must be 1..4")
+    if type(count) is not int or not 1 <= count <= len(expected):
+        raise ValueError(f"minimum_improving_domains must be 1..{len(expected)}")
     return {
         **dict(candidate),
-        "domains": list(PROJECT_SOURCES),
+        "domains": list(expected),
         "minimum_improvement_fraction": min_improvement,
         "maximum_allowed_regression_fraction": max_regression,
     }
@@ -112,7 +116,7 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
     outcomes = []
     all_promising = 0
     fails = []
-    for name in PROJECT_SOURCES:
+    for name in p["domains"]:
         item = data[name]
         if item["n"] != EXPECTED_ROWS[name]:
             raise ValueError(f"{name}: inconsistent project row count in benchmark")
@@ -204,6 +208,7 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
         "target": p["target"], "hypothesis": p["hypothesis"],
         "champion": p["champion"], "challenger": p["challenger"],
         "datasets_scrutinized": outcomes,
+        "additional_registered_domains_not_in_frozen_proposal": [name for name in PROJECT_SOURCES if name not in p["domains"]],
         "positive_domains": all_promising,
         "substantial_regressions": fails,
         "historical_performance_screen_passed": performance,
@@ -233,6 +238,7 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
             "Independently audit whether every candidate feature was available before effort was incurred.",
             "Replicate a preregistered release decision on external unseen modern AI-native projects, across repositories and time.",
             "Retain all rejected and contradicted hypotheses in the public versioned docket; do not erase negative datasets.",
+            "The frozen 1.0 proposal evaluates only its originally four named domains; revision 1.1 is a separately preregistered six-domain challenge.",
             "Test interval coverage, failure-aware costs and specification drift against locked baselines.",
             "Demand strong outcomes on strictly forward-year completed-project cohorts, not only years held out against future years.",
             "Require separate independent review and a rollback plan; no automatic model promotion from retrospective data.",
