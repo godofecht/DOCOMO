@@ -14,6 +14,7 @@ from typing import Sequence
 
 from .project_benchmarks import evaluate_legacy_corpus
 from .project_corpus import load_project_corpus
+from .forward_years import evaluate_all_forward
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -33,6 +34,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             "schema_version": "1.0",
             "source_data": {key:value for key,value in corpus.items() if key != "records"},
             "evaluations": results,
+            "strict_forward_year_validation": evaluate_all_forward(corpus),
             "calibration_status": "historical_real_effort_retrospective_not_ai_native",
             "cannot_claim": [
                 "unique independent project count across datasets",
