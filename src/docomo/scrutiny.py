@@ -174,6 +174,7 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
                 "relative_log_rmse_improvement": gain,
                 "meets_minimum_improvement": gain >= p["minimum_improvement_fraction"],
                 "regression_exceeds_budget": gain < -p["maximum_allowed_regression_fraction"],
+                "negative_result": gain <= 0,
             })
         temporal_success = (
             len(forward_results) == 2 and
@@ -216,6 +217,16 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
             f"{'regression' if x['relative_improvement_fraction'] < 0 else 'relative improvement'} "
             f"of {abs(x['relative_improvement_fraction'])*100:.2f}% in log-RMSE."
             for x in outcomes
+        ],
+        "forward_falsification_findings": [
+            f"{r['dataset']}: strict-year-forward testing "
+            + (f"improved log-RMSE by {r['relative_log_rmse_improvement']*100:.2f}%"
+               if r['relative_log_rmse_improvement'] is not None
+               and r['relative_log_rmse_improvement'] >= 0
+               else (f"REGRESSED log-RMSE by {-r['relative_log_rmse_improvement']*100:.2f}%"
+                     if r['relative_log_rmse_improvement'] is not None
+                     else "had insufficient earlier-year training evidence"))
+            for r in forward_results
         ],
         "evidence_integrity": source_check,
         "next_scrutiny": [
