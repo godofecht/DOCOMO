@@ -146,6 +146,13 @@ jobs:
           assert len(old['datasets_scrutinized']) == 4
           assert old['additional_registered_domains_not_in_frozen_proposal'] == ['kitchenham','maxwell']
           assert len(new['datasets_scrutinized']) == 6
+          assert new['positive_domains'] == 3
+          assert new['historical_performance_screen_passed'] is False
+          human = new['historical_recorded_human_comparator']
+          assert human['projects_with_original_first_human_estimate'] == 145
+          assert human['model_beats_recorded_first_human_estimate'] is False
+          print('Historical expert log-RMSE:', human['recorded_human_first_estimate_log_rmse'])
+          print('Fitted model log-RMSE:', human['model_size_and_observed_drivers_log_rmse'])
           assert new['additional_registered_domains_not_in_frozen_proposal'] == []
           assert not new['requested_model_upgrade_automatically_authorized']
           for row in new['datasets_scrutinized']:
