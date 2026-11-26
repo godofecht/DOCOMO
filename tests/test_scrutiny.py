@@ -26,6 +26,8 @@ def toy_report(ratio_by_domain=None):
         metrics = {"size_only":{"log_rmse":1.0},
                    "size_and_observed_drivers":{"log_rmse":ratio_by_domain.get(name, .9)},
                    "training_median":{"log_rmse":1.5}}
+        if name == "kitchenham":
+            metrics["original_recorded_human_first_estimate"] = {"log_rmse": .4}
         outcomes[name] = {"n":EXPECTED_ROWS[name], "metrics":metrics,
                           "unit":UNITS[name], "evaluation":"toy_group_holdout"}
     return {
@@ -152,6 +154,8 @@ class ScrutinyTests(unittest.TestCase):
         self.assertEqual(len(trial["datasets_scrutinized"]), 6)
         self.assertEqual(trial["additional_registered_domains_not_in_frozen_proposal"], [])
         self.assertFalse(trial["requested_model_upgrade_automatically_authorized"])
+        self.assertFalse(trial["historical_recorded_human_comparator"]["model_beats_recorded_first_human_estimate"])
+        self.assertGreater(trial["historical_recorded_human_comparator"]["model_relative_log_rmse_change_vs_human"],0)
         altered = copy.deepcopy(new)
         altered["domains"].remove("maxwell")
         with self.assertRaisesRegex(ValueError,"all 6 predeclared"):
