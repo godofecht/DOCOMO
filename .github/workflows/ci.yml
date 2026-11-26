@@ -125,6 +125,14 @@ jobs:
       - name: Install optional Parquet support for independent human-validated repair inventory
         run: python -m pip install -e '.[repair]'
       - run: docomo-score-repairs --help
+      - run: docomo-industrial --help
+      - name: Confirm Mendeley v2 parser rejects missing original source and keeps fixtures synthetic
+        run: |
+          python -m unittest discover -s tests -p 'test_industrial_stories.py' -v
+          if docomo-industrial score catalog/mendeley_v2_mapping.template.json --mapping catalog/mendeley_v2_mapping.template.json; then
+            echo "Incorrectly accepted a placeholder dataset as original source"
+            exit 1
+          fi
       - name: Verify original 500 real source-repository repair cases without gold-patch leakage
         run: |
           docomo-repairs --index-output verified-repair-index.json
