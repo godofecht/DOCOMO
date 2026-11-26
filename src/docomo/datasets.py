@@ -41,6 +41,20 @@ SOURCES = {
         'git_blob_sha1': '423ed4c60a4e6493bd41a0c62caf750ad7ec40c9',
         'description': '81 historical Canadian completed projects; actual effort person-hours, missing experience coded -1',
     },
+    'kitchenham': {
+        'repository': 'Derek-Jones/Software-estimation-datasets',
+        'commit': 'e3fbd4faa2a5aec94b06535369664c3ebbcbac39',
+        'path': 'kitchenham.arff',
+        'git_blob_sha1': '3dfa1089cc4ecba24089f1b788dea98668f22a04',
+        'description': '145 completed outsourcing projects, observed person-hours, original first estimates and adjusted function points',
+    },
+    'maxwell': {
+        'repository': 'Derek-Jones/Software-estimation-datasets',
+        'commit': 'e3fbd4faa2a5aec94b06535369664c3ebbcbac39',
+        'path': 'maxwell.arff',
+        'git_blob_sha1': '429f136d7a177dcf3bc72943579ae47e50af71d8',
+        'description': '62 actual Finnish banking software projects, person-hours and function-point sizes; some publications mistakenly report 63',
+    },
     'metr_early': {
         'repository': 'METR/Measuring-Early-2025-AI-on-Exp-OSS-Devs',
         'commit': '7ff2d7670235f531dff77eff58355bd77392f396',
