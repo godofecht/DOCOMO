@@ -106,6 +106,10 @@ Once an independent evaluator runs the official SWE-bench harness, `docomo-score
 
 `docomo-industrial inspect original-v2.xlsx` reports the original workbook SHA256 and actual visible/hidden worksheet names. Once the official [Mendeley version 2 dataset](https://data.mendeley.com/datasets/ytmwsf2997/2) has been obtained, fill in the exact source headings, sheet and digest in `catalog/mendeley_v2_mapping.template.json` and run `docomo-industrial score` with that mapping. It insists on **ten original projects, over 100 complete stories, actual numerical person-hours and every original human/AI estimator**, rejecting missing labels, duplicate stories, formula-derived values and mismatched versions. The report gives per-project/pooled error and paired project-cluster bootstrap differences, never claims AI coding productivity. Until the original v2 workbook can be downloaded, this source remains **identified but not ingested** in the evidence registry. [Full specification](docs/INDUSTRIAL_STORIES.md).
 
+## No future-project leakage in historical backtests
+
+`docomo-projects` and `docomo-scrutiny` now run an additional **strict earlier-to-later** challenge on the real NASA93 and Desharnais year-labelled projects. Each year's effort models are fitted *only* on earlier completed years; records from early years without enough predecessors are explicitly excluded rather than using later outcomes to fit a model. The scrutiny report publishes regression failures and a distinct `strict_forward_year_screen` gate. Historical source features may still be retrospective, and these tests are not certification of AI-native accepted-project cost. See [docs/FORWARD_VALIDATION.md](docs/FORWARD_VALIDATION.md).
+
 ## Scope
 
 Phase 0 implements decision-theoretic grounding, observational accepted-outcome cost, and partially calibrated, strictly domain-scoped historical and AI-task models. It does not automatically interpret requirements, verify a programme, estimate unknown future costs, derive probabilities from prose, or prove that an acceptance suite covers the right specification.

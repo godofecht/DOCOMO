@@ -99,6 +99,45 @@ class ScrutinyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "non-ingested"):
             scrutinize_amendment(PROPOSAL, toy_report(), altered)
 
+
+    def test_strict_forward_year_regression_remains_visible(self):
+        report = toy_report()
+        report["strict_forward_year_validation"] = {
+            "status": "retrospective_strict_forward_year_project_effort_validation",
+            "domains": {
+                "nasa93": {
+                    "status": "strict_earlier_to_later_historical_backtest_not_prospective",
+                    "total_project_observations": 93, "scored_future_year_projects": 30,
+                    "unscored_early_projects": 63,
+                    "metrics": {
+                        "size_only": {"log_rmse": .7},
+                        "size_and_observed_drivers": {"log_rmse": .72},
+                        "training_median": {"log_rmse": .9},
+                    },
+                },
+                "desharnais": {
+                    "status": "strict_earlier_to_later_historical_backtest_not_prospective",
+                    "total_project_observations": 81, "scored_future_year_projects": 49,
+                    "unscored_early_projects": 32,
+                    "metrics": {
+                        "size_only": {"log_rmse": .6},
+                        "size_and_observed_drivers": {"log_rmse": .42},
+                        "training_median": {"log_rmse": .9},
+                    },
+                },
+            },
+        }
+        result = scrutinize_amendment(PROPOSAL, report, CATALOG)
+        self.assertTrue(result["strict_forward_year_screen_passed"])
+        self.assertTrue(result["strict_forward_year_challenges"][0]["negative_result"])
+        self.assertFalse(result["strict_forward_year_challenges"][1]["negative_result"])
+        self.assertIn("REGRESSED", result["forward_falsification_findings"][0])
+        self.assertFalse(result["requested_model_upgrade_automatically_authorized"])
+        report["strict_forward_year_validation"]["domains"]["nasa93"]["metrics"]["size_and_observed_drivers"]["log_rmse"] = .8
+        failed = scrutinize_amendment(PROPOSAL, report, CATALOG)
+        self.assertFalse(failed["strict_forward_year_screen_passed"])
+        self.assertTrue(failed["strict_forward_year_challenges"][0]["regression_exceeds_budget"])
+
     def test_rejects_unfrozen_amendment_changes(self):
         altered = copy.deepcopy(PROPOSAL)
         altered["minimum_improving_domains"] = True

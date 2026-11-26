@@ -140,11 +140,54 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
             "negative_result": improvement <= 0,
         })
     performance = all_promising >= p["minimum_improving_domains"] and not fails
+    temporal = report.get("strict_forward_year_validation")
+    forward_results = []
+    temporal_success = False
+    if temporal is not None:
+        if not isinstance(temporal, Mapping) or temporal.get("status") != "retrospective_strict_forward_year_project_effort_validation":
+            raise ValueError("invalid strict-forward validation report")
+        results = temporal.get("domains")
+        if not isinstance(results, Mapping) or set(results) != {"nasa93", "desharnais"}:
+            raise ValueError("strict-forward benchmark must evaluate NASA93 and Desharnais")
+        for name in ("nasa93", "desharnais"):
+            item = results[name]
+            if item.get("status") != "strict_earlier_to_later_historical_backtest_not_prospective":
+                forward_results.append({"dataset": name, "status": item.get("status"),
+                                        "relative_log_rmse_improvement": None,
+                                        "regression_exceeds_budget": None})
+                continue
+            if (item.get("total_project_observations") != EXPECTED_ROWS[name]
+                    or item.get("scored_future_year_projects",0) <= 0):
+                raise ValueError(f"{name}: strict-forward source evidence is incomplete")
+            metrics = item["metrics"]
+            base = float(metrics[p["champion"]]["log_rmse"])
+            challenger = float(metrics[p["challenger"]]["log_rmse"])
+            if not all(math.isfinite(z) and z>0 for z in (base, challenger)):
+                raise ValueError("invalid strict-forward predictive error")
+            gain = 1 - challenger/base
+            forward_results.append({
+                "dataset": name, "status": item["status"],
+                "scored_future_year_projects": item["scored_future_year_projects"],
+                "unscored_early_projects": item["unscored_early_projects"],
+                "champion_log_rmse": base,
+                "challenger_log_rmse": challenger,
+                "relative_log_rmse_improvement": gain,
+                "meets_minimum_improvement": gain >= p["minimum_improvement_fraction"],
+                "regression_exceeds_budget": gain < -p["maximum_allowed_regression_fraction"],
+                "negative_result": gain <= 0,
+            })
+        temporal_success = (
+            len(forward_results) == 2 and
+            all(r["relative_log_rmse_improvement"] is not None
+                and not r["regression_exceeds_budget"] for r in forward_results) and
+            any(r["meets_minimum_improvement"] for r in forward_results)
+        )
     feature_verified = p["proposed_feature_timing"] == "planning_time_independently_verified"
     # We do not have original planning timestamps for the historical predictors:
     # a proposal claim alone cannot make them independently verified.
     release_gate = {
         "cross_source_legacy_benchmark_screen": performance,
+        "strict_forward_year_screen": temporal_success,
         "predictors_proven_available_at_planning": False,
         "prospective_unseen_project_holdout_passed": False,
         "independent_acceptance_and_cost_labels_audited": False,
@@ -164,6 +207,8 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
         "positive_domains": all_promising,
         "substantial_regressions": fails,
         "historical_performance_screen_passed": performance,
+        "strict_forward_year_screen_passed": temporal_success,
+        "strict_forward_year_challenges": forward_results,
         "release_gates": release_gate,
         "release_status": "research_candidate_not_eligible_for_ai_native_release",
         "requested_model_upgrade_automatically_authorized": False,
@@ -173,12 +218,23 @@ def scrutinize_amendment(proposal: Mapping[str, Any],
             f"of {abs(x['relative_improvement_fraction'])*100:.2f}% in log-RMSE."
             for x in outcomes
         ],
+        "forward_falsification_findings": [
+            f"{r['dataset']}: strict-year-forward testing "
+            + (f"improved log-RMSE by {r['relative_log_rmse_improvement']*100:.2f}%"
+               if r['relative_log_rmse_improvement'] is not None
+               and r['relative_log_rmse_improvement'] >= 0
+               else (f"REGRESSED log-RMSE by {-r['relative_log_rmse_improvement']*100:.2f}%"
+                     if r['relative_log_rmse_improvement'] is not None
+                     else "had insufficient earlier-year training evidence"))
+            for r in forward_results
+        ],
         "evidence_integrity": source_check,
         "next_scrutiny": [
             "Independently audit whether every candidate feature was available before effort was incurred.",
             "Replicate a preregistered release decision on external unseen modern AI-native projects, across repositories and time.",
             "Retain all rejected and contradicted hypotheses in the public versioned docket; do not erase negative datasets.",
             "Test interval coverage, failure-aware costs and specification drift against locked baselines.",
+            "Demand strong outcomes on strictly forward-year completed-project cohorts, not only years held out against future years.",
             "Require separate independent review and a rollback plan; no automatic model promotion from retrospective data.",
         ],
     }
