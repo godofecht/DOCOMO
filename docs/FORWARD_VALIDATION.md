@@ -42,3 +42,17 @@ Prospective validation for a modern domain still requires independently time-sta
 ## Falsification tests
 
 The unit suite changes the observed effort of a future test-year cohort and verifies that earlier and same-year forecast values do not change. It also rejects mixed sources, duplicate projects, fabricated completion-year descriptors and unlabeled year groups. A dataset with no eligible future test year reports insufficient prior history instead of manufacturing training data from the future.
+
+
+## First observed strict-forward results (26 November 2026)
+
+The CI-run actual published project data give:
+
+| Source | Scored later-year projects | Explicitly unscored early projects | Size-only log-RMSE | With historical drivers | Driver change |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| NASA93 | 30 | 63 | 0.703421 | 0.721194 | **2.53% regression** |
+| Desharnais | 49 | 32 | 0.605975 | 0.426338 | **29.64% improvement** |
+
+The existing leave-one-year-out test reported a 22.53% NASA93 improvement with drivers. Under the stricter forward-only chronology the same challenger is worse by 2.53%. The discrepancy is a **counterexample** to claims that an observed historical driver improvement is stable across validation protocols.
+
+The predeclared research amendment permits a regression of up to 5% in either temporal domain and requires at least one sufficiently improving domain, so its *historical robustness screen* still passes. The positive screen does not erase the negative NASA93 result, certify that driver ratings existed at planning, or authorize a DOCOMO AI-native release. Changing the decision criterion retrospectively to force a different pass/fail verdict would itself be poor scientific practice. A subsequent amendment should independently preregister new thresholds and test a genuinely new cohort.
