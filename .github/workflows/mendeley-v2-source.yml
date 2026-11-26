@@ -1,0 +1,23 @@
+name: Discover original Mendeley v2 industrial dataset
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect-published-source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Query official version-2 public dataset file metadata
+        env:
+          MENDELEY_ACCESS_TOKEN: ${{ secrets.MENDELEY_ACCESS_TOKEN }}
+        run: |
+          python scripts/discover_mendeley_v2.py --output mendeley-v2-public-metadata.json
+      - name: Retain original metadata discovery evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: docomo-mendeley-v2-source-metadata
+          path: mendeley-v2-public-metadata.json
