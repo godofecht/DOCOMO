@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.1",
+  "proposal_id": "legacy-six-source-driver-amendment-002",
+  "hypothesis": "Investigate whether source-recorded complexity/cost descriptors outperform a fixed size-only regression on at least four of six independent archival dataset source families without a greater than 5% relative log-RMSE regression in any family; preserve strict time-forward NASA93/Desharnais counterexamples.",
+  "target": "historical_project_human_effort",
+  "champion": "size_only",
+  "challenger": "size_and_observed_drivers",
+  "domains": [
+    "cocomo81",
+    "nasa93",
+    "china",
+    "desharnais",
+    "kitchenham",
+    "maxwell"
+  ],
+  "minimum_improvement_fraction": 0.02,
+  "maximum_allowed_regression_fraction": 0.05,
+  "minimum_improving_domains": 4,
+  "scope": "Exploratory expanded six-dataset comparison of recorded historical actual effort. Does not revise v1 four-dataset preregistered rule, prove independent sample membership, or permit AI-native model promotion.",
+  "proposed_feature_timing": "historical_recorded_or_unknown"
+}
