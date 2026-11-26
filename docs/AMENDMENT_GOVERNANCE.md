@@ -62,3 +62,7 @@ Issue #9 tracks acquiring independently accepted AI-native projects. Issue #17 t
 Declare a precise use domain (e.g. a class of AI-assisted repository enhancements with independent acceptance), externally register the sampling and evaluation policy, collect complete labor/machine/verification costs with failures, evaluate on untouched projects from independent repositories, and show calibrated predictive coverage and improvement over *correctly matched* historic COCOMO II, size-only and a scalar AI treatment baseline. Run ablations separating specification grounding, coding, verification, orchestration, integration and rework.
 
 The result must report both what the model predicted correctly **and where it failed**. Calibrated status is bounded by a clearly stated task population, evaluator version and time horizon, and can be revoked when monitoring detects distribution shift. DOCOMO 1.0 is not an eternal law; it is a model allowed to be wrong in ways that can be measured.
+
+## Recorded evidence against model promotion (26 November 2026)
+
+The new 1.1 six-source amendment fails its declared 4-of-6, minimum-2%-improvement test; only three datasets meet the threshold. Kitchenham's real recorded human first estimates achieve log-RMSE 0.35838, beating the fitted size-and-observed-drivers model at 0.66960. This is a counterexample to claims that the statistical challenger has replaced human expert judgement. The historical 1.0 four-source amendment and its original decision rule remain unchanged, and no AI-native cost model is promoted.
